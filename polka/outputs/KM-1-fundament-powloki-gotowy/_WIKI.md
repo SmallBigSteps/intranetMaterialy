@@ -11,4 +11,5 @@ Wyniki kamienia KM-1 „Fundament powłoki gotowy” (03.11.2026).
 | [ZAD-299-kod.md](ZAD-299-kod.md) | Notka zadania kodu ZAD-299: https://github.com/SmallBigSteps/intranet/compare/main...zad-299-szczegoly-zadania-nowy-uklad?expand=1 | ZAD-299 | ZAD-299 Szczegóły zadania: nowy układ | 15.11.2026 | do akceptacji |
 | [ZAD-300-kod.md](ZAD-300-kod.md) | Notka zadania kodu ZAD-300: https://github.com/SmallBigSteps/intranet/compare/main...zad-300-katalog-szczegoly-chevrony | ZAD-300 | ZAD-300 Katalog aplikacji: szczegóły, chevrony | 15.11.2026 | do akceptacji |
 | [ZAD-301-kod.md](ZAD-301-kod.md) | Notka zadania kodu ZAD-301: https://github.com/SmallBigSteps/intranet/compare/main...zad-301-uwagi-przejscie-do-zgloszen?expand=1 | ZAD-301 | ZAD-301 Uwagi: przejście do zgłoszeń | 15.11.2026 | do akceptacji |
+| [ZAD-338-kod.md](ZAD-338-kod.md) | Notka zadania kodu ZAD-338: https://github.com/SmallBigSteps/intranet/compare/main...zad-338-testy-powloki-bez-wdrozenia?expand=1 | ZAD-338 | ZAD-338 Testy powłoki bez wdrożenia | 24.11.2026 | do akceptacji |
 <!-- spis:koniec -->

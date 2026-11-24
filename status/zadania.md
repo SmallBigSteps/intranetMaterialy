@@ -17,7 +17,7 @@
 | ZAD-299 | Szczegóły zadania: nowy układ | ZROBIONE | Pawel Mazek | KM-1 | 17.11.2026 | Scalone: PR #267 w SmallBigSteps/intranet (https://github.com/SmallBigSteps/intranet/pull/267) i PR #13 w febo-intranet-... |
 | ZAD-300 | Katalog aplikacji: szczegóły, chevrony | ZROBIONE | Pawel Mazek | KM-1 | 17.11.2026 | Scalone do main: PR #263 https://github.com/SmallBigSteps/intranet/pull/263 (core-ui 2.31, core-cockpit 3.15); notka na... |
 | ZAD-301 | Uwagi: przejście do zgłoszeń | ZROBIONE | Pawel Mazek | KM-1 | 17.11.2026 | Scalone: SmallBigSteps/intranet PR #266 (przycisk „Przejdź do Moich zgłoszeń” po wysłaniu uwagi, wyróżniony odnośnik w k... |
-| ZAD-338 | Testy powłoki bez wdrożenia | W TOKU | Pawel Mazek | KM-1 |  |  |
+| ZAD-338 | Testy powłoki bez wdrożenia | DO AKCEPTACJI | Pawel Mazek | KM-1 |  | PR: https://github.com/SmallBigSteps/intranet/compare/main...zad-338-testy-powloki-bez-wdrozenia?expand=1 |
 
 ## KM-2 Pierwsza aplikacja u użytkowników FEBO (do 26.11.2026)
 
@@ -109,13 +109,13 @@
 | ZAD-113 | Format aplikacji — Standardy: przejście na układ bazowy komputer; tablet i telefon zachowane jako formaty dodatkowe. Wynika z ZAD-010 projektu planer (06.10.2026, Paweł Mazek): niezmiennik 35 zmieniony — format aplikacji wybiera się przy tworzeniu lokatora. | ZROBIONE | redAI | KM-7 | 24.11.2026 | PR #282 scalony 23.11.2026 (razem z ZAD-328): https://github.com/SmallBigSteps/intranet/pull/282 |
 | ZAD-112 | Format aplikacji — Struktura i kontakty: układ komputerowy (tylko komputer); zdjęcie wymogów tabletu i telefonu z ekranów i przeglądu. Wynika z ZAD-010 projektu planer (06.10.2026, Paweł Mazek): niezmiennik 35 zmieniony — format aplikacji wybiera się przy tworzeniu lokatora. | ZROBIONE | redAI | KM-7 | 24.11.2026 | PR scalony: https://github.com/SmallBigSteps/intranet/compare/main...zad-327-struktura-trzy-widoki |
 | ZAD-110 | Format aplikacji — wspólna rama: przejście na układ bazowy komputer; tablet i telefon zachowane jako formaty dodatkowe. Wynika z ZAD-010 projektu planer (06.10.2026, Paweł Mazek): niezmiennik 35 zmieniony — format aplikacji wybiera się przy tworzeniu lokatora. | ZROBIONE | Pawel Mazek | KM-7 | 23.11.2026 | Scalone razem z ZAD-321: SmallBigSteps/intranet PR #280 (55dc250) |
-| ZAD-308 | Odbiór wyglądu obu trybów | CZEKA | Pawel Mazek | KM-7 | 27.11.2026 |  |
+| ZAD-308 | Odbiór wyglądu obu trybów | DO ZROBIENIA | Pawel Mazek | KM-7 | 27.11.2026 |  |
 | ZAD-329 | Logo w pakiecie marki FEBO | ZROBIONE | Pawel Mazek | KM-7 | 24.11.2026 | PR powłoki SmallBigSteps/intranet #287 (scalony) i PR wdrożenia feboLogisticGit/febo-intranet-wdrozenie zad-329-logo-feb... |
 | ZAD-330 | Strona główna bez pamięci podręcznej | ZROBIONE | Pawel Mazek | KM-7 | 24.11.2026 | PR #286 scalony do main (merge c9f6205): nginx wysyła no-cache dla index.html i tras SPA, rok z immutable dla /assets/,... |
 | ZAD-332 | Scenariusze odbioru — nowe logowanie | ZROBIONE | Pawel Mazek | KM-7 |  | PR scalony: https://github.com/feboLogisticGit/febo-intranet-wdrozenie/pull/new/zad-332-scenariusze-nowe-logowanie (scen... |
 | ZAD-333 | Scenariusze odbioru bez zapisanych widoków | W TOKU | Pawel Mazek | KM-7 | 24.11.2026 |  |
 | ZAD-334 | Kapsułki i opcje marki | ZROBIONE | Pawel Mazek | KM-7 |  | PR #284 scalony do main 23.11.2026 (core-ui 2.43, core-cockpit 3.23); wpis w docs/progress.md |
-| ZAD-335 | Osobny kolor panelu logowania | DO AKCEPTACJI | Pawel Mazek | KM-7 |  | PR: https://github.com/SmallBigSteps/intranet/pull/new/zad-335-osobny-kolor-panelu-logowania |
+| ZAD-335 | Osobny kolor panelu logowania | ZROBIONE | Pawel Mazek | KM-7 |  | PR #289 w SmallBigSteps/intranet (tokeny login-brand, on-login-brand) i PR #28 w febo-intranet-wdrozenie (ciemny panel l... |
 | ZAD-339 | Bez zdania o celu | DO AKCEPTACJI | Pawel Mazek | KM-7 |  | PR: https://github.com/SmallBigSteps/intranet/pull/new/zad-339-bez-zdania-o-celu |
 
 ## KM-3 Pięć aplikacji w użyciu (do 31.01.2027)

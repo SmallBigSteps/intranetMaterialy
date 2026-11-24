@@ -6,6 +6,11 @@ Ostatnie 100 zdarzeń w backlogu, od najnowszego.
 
 | Data | Zadanie | Co | Kto | Notatka |
 |---|---|---|---|---|
+| 24.11.2026 15:01 | ZAD-308 | odblokowane automatycznie | automat backlogu | koniec czekania: zrobione ZAD-321, ZAD-322, ZAD-323, ZAD-324, ZAD-325, ZAD-326, ZAD-327, ZAD-328, intranetwdrozeniefebo:ZAD-031, intranetplatnosci:ZAD-039 (powó... |
+| 24.11.2026 14:54 | ZAD-338 | W TOKU → DO AKCEPTACJI | czat: ZAD-338 Testy powłoki bez wdrożenia | Wynik odłożony na półkę: outputs/KM-1-fundament-powloki-gotowy/ZAD-338-kod.md |
+| 24.11.2026 14:54 | ZAD-134 | notatka | czat: ZAD-338 Testy powłoki bez wdrożenia | ZAD-338 (24.11.2026): CI ma zadanie „Backend without a deployment” — testy powłoki bez wdrożenia i bez aplikacji; test_aud_transaction wypadł z wyjątku niezmien... |
+| 24.11.2026 14:41 | ZAD-335 | DO AKCEPTACJI → ZROBIONE | czat: ZAD-335 Osobny kolor panelu logowania |  |
+| 24.11.2026 14:31 | ZAD-338 | notatka | czat: ZAD-338 Testy powłoki bez wdrożenia | Decyzja Pawła Mazka 24.11: w tym PR skreślamy test_aud_transaction z przejściowego wyjątku w niezmienniku 10 (CLAUDE.md 6.6, historia zmian, notka w docs/decisi... |
 | 24.11.2026 13:13 | ZAD-176 | DO ZROBIENIA → ZROBIONE | karta repozytoriów | Zamknięte samo: wiersz karty „Repozytoria projektu” działa. |
 | 24.11.2026 13:01 | ZAD-339 | W TOKU → DO AKCEPTACJI | czat: ZAD-339 Bez zdania o celu | Wynik odłożony na półkę: outputs/KM-7-ux-i-uy/ZAD-339-kod.md |
 | 24.11.2026 13:01 | ZAD-339 | notatka | czat: ZAD-339 Bez zdania o celu | Kod: gałąź zad-339-bez-zdania-o-celu (commit d073587). Zdania o celu usunięte z 21 miejsc, PageHeader bez pola purpose, PurposeSentence i namedDayOf usunięte. S... |
@@ -101,8 +106,3 @@ Ostatnie 100 zdarzeń w backlogu, od najnowszego.
 | 23.11.2026 10:23 | ZAD-328 | notatka | czat: ZAD-328 Standardy w stylu wytycznych | Pigułki, grupowanie i licznik listy procedur nie weszły: czekają na wspólne komponenty z ZAD-323 (W TOKU). Uwaga do powłoki: pigułka stanu w nagłówku ekranu ma... |
 | 23.11.2026 10:23 | ZAD-113 | notatka | czat: ZAD-328 Standardy w stylu wytycznych | Zrobione razem z ZAD-328 (ta sama gałąź zad-328-standardy-wytyczne); zamknąć razem z nim. |
 | 23.11.2026 10:23 | ZAD-328 | W TOKU → DO AKCEPTACJI | czat: ZAD-328 Standardy w stylu wytycznych | Wynik odłożony na półkę: outputs/KM-7-ux-i-uy/ZAD-328-kod.md |
-| 23.11.2026 10:16 | ZAD-334 | W TOKU → DO AKCEPTACJI | czat: ZAD-334 Kapsułki i opcje marki | Wynik odłożony na półkę: outputs/KM-7-ux-i-uy/ZAD-334-kod.md |
-| 23.11.2026 10:04 | ZAD-328 | notatka | czat: ZAD-328 Standardy w stylu wytycznych | 23.11.2026: pigułki filtra i przełącznik grupowania na liście procedur biorą wspólny komponent powłoki z ZAD-323 (ustalenie ZAD-323 z 23.11.2026); lista procedu... |
-| 23.11.2026 10:04 | ZAD-327 | notatka | czat: ZAD-327 Struktura i kontakty: trzy widoki | Ustalenie z Pawłem Mazkiem 23.11.2026: domyślna zakładka Lista, własny dział rozwinięty, „To Ty” przy własnym wierszu. Widok działu bez wyboru otwiera dział oso... |
-| 23.11.2026 10:03 | ZAD-334 | notatka | czat: ZAD-334 Kapsułki i opcje marki | Ustalenie z Pawłem Mazkiem 23.11.2026: znak aplikacji bez opcji mark-fill zgodnie z makietą 07 i kontraktem — rysunek w kolorze ink na tle kafla w cienkiej ramc... |
-| 23.11.2026 10:00 | ZAD-328 | notatka | czat: ZAD-328 Standardy w stylu wytycznych | 23.11.2026 Paweł Mazek: wariant B — decyzja znika z ekranu procedury; zostaje zdanie (np. „To czeka na Twoją decyzję” / „Masz to przeczytać i potwierdzić”, kto... |
