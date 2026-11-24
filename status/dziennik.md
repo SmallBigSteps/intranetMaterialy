@@ -6,6 +6,16 @@ Ostatnie 100 zdarzeń w backlogu, od najnowszego.
 
 | Data | Zadanie | Co | Kto | Notatka |
 |---|---|---|---|---|
+| 24.11.2026 15:52 | ZAD-340 | DO ZROBIENIA → W TOKU | czat: ZAD-333 Scenariusze odbioru bez zapisanych widoków |  |
+| 24.11.2026 15:52 | ZAD-340 | dodane | czat: ZAD-333 Scenariusze odbioru bez zapisanych widoków |  |
+| 24.11.2026 15:31 | ZAD-333 | W TOKU → DO AKCEPTACJI | czat: ZAD-333 Scenariusze odbioru bez zapisanych widoków | Wynik odłożony na półkę: outputs/KM-7-ux-i-uy/ZAD-333-kod.md |
+| 24.11.2026 15:31 | ZAD-333 | notatka | czat: ZAD-333 Scenariusze odbioru bez zapisanych widoków | Oba scenariusze KM-1 (Daniel, Paweł) dopasowane do Intranetu po KM-7, gałąź zad-333-scenariusze-po-km7. Zmienione kroki 0.1, 1.1, 1.2, 2.1, 2.2, 2.3, 2.5, 2.6,... |
+| 24.11.2026 15:25 | ZAD-333 | notatka | czat: ZAD-333 Scenariusze odbioru bez zapisanych widoków | 24.11: Paweł wybrał pełne dopasowanie obu scenariuszy (Daniel i Paweł) do obecnego Intranetu po KM-7; poprawiamy napisy i oczekiwane wyniki, kolejność i sens kr... |
+| 24.11.2026 15:11 | ZAD-308 | notatka | czat: ZAD-308 Odbiór wyglądu obu trybów | 24.11: konta testowe e2e-zadania, e2e-struktura, e2e-platnosci skopiowane do sejfu intranet2.0 z IntranetPlatnosci (tam zostały). ZAD-339 zrobione; ZAD-333 wg P... |
+| 24.11.2026 15:03 | ZAD-339 | DO AKCEPTACJI → ZROBIONE | czat: ZAD-339 Bez zdania o celu |  |
+| 24.11.2026 15:02 | ZAD-338 | DO AKCEPTACJI → ZROBIONE | czat: ZAD-338 Testy powłoki bez wdrożenia |  |
+| 24.11.2026 15:02 | ZAD-308 | DO ZROBIENIA → W TOKU | Pawel Mazek | otwarty czat zadania |
+| 24.11.2026 15:02 | ZAD-308 | notatka | Pawel Mazek | czat zadania: ZAD-308 Odbiór wyglądu obu trybów |
 | 24.11.2026 15:01 | ZAD-308 | odblokowane automatycznie | automat backlogu | koniec czekania: zrobione ZAD-321, ZAD-322, ZAD-323, ZAD-324, ZAD-325, ZAD-326, ZAD-327, ZAD-328, intranetwdrozeniefebo:ZAD-031, intranetplatnosci:ZAD-039 (powó... |
 | 24.11.2026 14:54 | ZAD-338 | W TOKU → DO AKCEPTACJI | czat: ZAD-338 Testy powłoki bez wdrożenia | Wynik odłożony na półkę: outputs/KM-1-fundament-powloki-gotowy/ZAD-338-kod.md |
 | 24.11.2026 14:54 | ZAD-134 | notatka | czat: ZAD-338 Testy powłoki bez wdrożenia | ZAD-338 (24.11.2026): CI ma zadanie „Backend without a deployment” — testy powłoki bez wdrożenia i bez aplikacji; test_aud_transaction wypadł z wyjątku niezmien... |
@@ -96,13 +106,3 @@ Ostatnie 100 zdarzeń w backlogu, od najnowszego.
 | 23.11.2026 10:39 | ZAD-323 | notatka | czat: ZAD-323 Lista zadań według makiety | 23.11: kod gotowy na gałęzi zad-323-lista-zadan-wedlug-makiety (pigułki FilterPill z 7 filtrami i licznikami, grupy po aplikacji ze znakiem i licznikami, numer... |
 | 23.11.2026 10:32 | ZAD-328 | notatka | czat: ZAD-328 Standardy w stylu wytycznych | Wynik odłożony na półkę: outputs/KM-7-ux-i-uy/ZAD-328-kod.md |
 | 23.11.2026 10:31 | ZAD-325 | notatka | czat: ZAD-325 Katalog aplikacji według makiety | CI: test_system padał po scaleniu nazwy firmy we wdrożeniu (PR #22, ZAD-321); test ustawia firmę pustą sam (0c4cde4). |
-| 23.11.2026 10:27 | ZAD-311 | notatka | automat backlogu | Kontrola półki przy DO AKCEPTACJI: brak pliku w outputs/ z nagłówkiem albo wierszem spisu wskazującym ZAD-311 (odłóżcie wynik: pmo:odloz). |
-| 23.11.2026 10:27 | ZAD-311 | DO ZROBIENIA → DO AKCEPTACJI | czat: ZAD-327 Struktura i kontakty: trzy widoki |  |
-| 23.11.2026 10:27 | ZAD-112 | notatka | automat backlogu | Kontrola półki przy DO AKCEPTACJI: brak pliku w outputs/ z nagłówkiem albo wierszem spisu wskazującym ZAD-112 (odłóżcie wynik: pmo:odloz). |
-| 23.11.2026 10:27 | ZAD-112 | DO ZROBIENIA → DO AKCEPTACJI | czat: ZAD-327 Struktura i kontakty: trzy widoki |  |
-| 23.11.2026 10:27 | ZAD-327 | W TOKU → DO AKCEPTACJI | czat: ZAD-327 Struktura i kontakty: trzy widoki | Wynik odłożony na półkę: outputs/KM-7-ux-i-uy/ZAD-327-kod.md |
-| 23.11.2026 10:23 | ZAD-113 | notatka | automat backlogu | Kontrola półki przy DO AKCEPTACJI: brak pliku w outputs/ z nagłówkiem albo wierszem spisu wskazującym ZAD-113 (odłóżcie wynik: pmo:odloz). |
-| 23.11.2026 10:23 | ZAD-113 | DO ZROBIENIA → DO AKCEPTACJI | czat: ZAD-328 Standardy w stylu wytycznych |  |
-| 23.11.2026 10:23 | ZAD-328 | notatka | czat: ZAD-328 Standardy w stylu wytycznych | Pigułki, grupowanie i licznik listy procedur nie weszły: czekają na wspólne komponenty z ZAD-323 (W TOKU). Uwaga do powłoki: pigułka stanu w nagłówku ekranu ma... |
-| 23.11.2026 10:23 | ZAD-113 | notatka | czat: ZAD-328 Standardy w stylu wytycznych | Zrobione razem z ZAD-328 (ta sama gałąź zad-328-standardy-wytyczne); zamknąć razem z nim. |
-| 23.11.2026 10:23 | ZAD-328 | W TOKU → DO AKCEPTACJI | czat: ZAD-328 Standardy w stylu wytycznych | Wynik odłożony na półkę: outputs/KM-7-ux-i-uy/ZAD-328-kod.md |
