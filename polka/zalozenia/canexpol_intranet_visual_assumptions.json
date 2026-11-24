@@ -1,0 +1,380 @@
+{
+  "analysis_summary": {
+    "website_character": "canexpol.waw.pl is a WordPress-built, bilingual (PL/EN) B2B manufacturing site for a contract cosmetics producer. It is credibility-first rather than emotion-first: hero copy leads with compliance ('zgodnie z wymogami UE'), certification badges (GMP, ISO) appear on nearly every screen, and trust is built through stat blocks (600 brands, 40 years, 30 countries), retailer logo walls (Jerónimo Martins, REWE, Hebe, BIPA, DOZ), a numbered end-to-end process (01-05, 'Od briefu do dostawy'), named team members with photos and quotes, and a Google review score (4.8/5). The layout is modular and card-driven (product categories, process steps, testimonials, case studies, FAQ accordion) rather than freeform storytelling. Navigation is grouped by visitor intent ('who we are', 'what we offer', 'more') inside a right-side slide-out panel, plus a persistent top bar with EN/PL toggle. The tone is plain, operational, low-hype Polish business register.",
+    "brand_translation_for_intranet": "The public site's real strength for internal reuse is not its marketing devices (hero video, lead-gen PDF gate, logo carousel) but its underlying discipline: numbered sequential steps, certification/compliance badges as trust signals, stat/metric cards, grouped intent-based navigation, and accordion-based FAQ disclosure. These map almost directly onto intranet needs: numbered steps -> workflow/approval stages; certification badges -> compliance/status chips; stat cards -> KPI dashboard cards; grouped navigation -> role- or department-based intranet menu; FAQ accordion -> knowledge base / SOP disclosure pattern. The internal system should keep the calm, low-decoration, credibility-first visual logic but strip all persuasion mechanics (large hero imagery, testimonial carousels, gated downloads, scheduling CTAs).",
+    "transferable_patterns": [
+      "Numbered, sequential step pattern (01, 02, 03...) used for 'Od briefu do dostawy' -> reusable for production/approval/onboarding workflows",
+      "Certification badge treatment (GMP, ISO shown as small fixed icon + label, repeated in header, footer, and content) -> reusable as compliance/status chip system",
+      "Stat/metric card pattern (large number + short label, e.g. '500 t miesięcznej mocy produkcyjnej') -> reusable as KPI/dashboard card",
+      "Card-based grouping of content (product categories, case studies, blog posts as uniform image+title+short text cards)",
+      "Accordion-based FAQ disclosure (question header, plus/minus icon, collapsible answer) -> reusable for SOP / knowledge base pages",
+      "Grouped, intent-based navigation labelling ('who we are', 'what we offer', 'more') -> reusable as role/function-based intranet menu grouping",
+      "Consistent CTA button shape with trailing arrow icon, used identically across all pages",
+      "Bilingual PL/EN parity pattern (every page has a mirrored EN/PL route) -> reusable if intranet must serve export/international staff",
+      "Testimonial/quote block structure (short quote + name + role + photo) -> reusable as internal feedback, sign-off comment, or audit-note component",
+      "Footer legal block with full registered-entity data (KRS/NIP/REGON, addresses) -> reusable pattern for compliance footers on regulated internal documents"
+    ],
+    "patterns_to_avoid_in_intranet": [
+      "Autoplaying hero background video used on the About page",
+      "Large emotional/lifestyle photography as primary content anchor",
+      "Lead-generation email-gated PDF download pattern",
+      "Repeated 'Umów rozmowę' scheduling-call CTA blocks (sales conversion mechanic, irrelevant internally)",
+      "Retailer/partner logo carousel used purely for external social proof",
+      "Marketing superlatives and persuasive framing ('Skaluj bez zmiany producenta', 'Zbudowane z myślą o skalę') — internal copy must be instructional, not persuasive",
+      "Audience-segmented marketing sections (Retail / New brands / Creators) — an internal structure organizes by function/department, not by external buyer persona",
+      "Star-rating / review-score display styled as a marketing trust badge"
+    ],
+    "confidence_notes": [
+      "Exact hex color values, computed font-family, and precise spacing/corner-radius tokens could not be extracted because only rendered text/markup (not live CSS) was retrievable; all numeric color and typography values below are RECOMMENDED INFERENCES derived from visible signals (asset filenames such as 'ARROW_3-ORANGE.svg' and 'ARROW_3-BLUE.svg', consistent badge treatment, category-typical WordPress corporate/industrial styling) and should be verified against the actual site CSS or design files before implementation.",
+      "No 'what-if' conditional-guidance UI pattern is visible on the public site; the what_if_blocks section below is a recommended inference based on intranet operational needs (e.g. SOP exception handling), not an observed pattern.",
+      "No internal status/alert/checklist UI is visible on a public marketing site by nature; status_and_alerts and checklists_and_go_no_go sections are recommended inferences extrapolated from the certification-badge visual logic (GMP/ISO chips) and semantic color conventions.",
+      "Photography style (professional but restrained corporate/product photography, e.g. 'Retail image 660x560px', team portraits) is treated as a transferable tone signal, not as literal imagery to reuse internally."
+    ]
+  },
+  "brand_overview": {
+    "mission_keywords": [
+      "contract manufacturing",
+      "private label",
+      "one point of responsibility",
+      "GMP/ISO compliance",
+      "family-owned since 1984",
+      "predictable scaling",
+      "from formula to delivery"
+    ],
+    "visual_keywords": [
+      "clinical-corporate",
+      "understated",
+      "credibility-driven",
+      "structured",
+      "process-oriented",
+      "certification-forward",
+      "low-decoration"
+    ],
+    "tone_of_voice": "Plain, confident, consultative Polish B2B register. Leads with process, scale, and compliance credibility rather than emotional storytelling. Uses direct address ('Twoja marka') sparingly and only in persuasive marketing contexts, not operational contexts. Avoids exclamation points and hype adjectives; prefers concrete nouns (partia, receptura, seria, dokumentacja) over abstract claims.",
+    "brand_personality": "The reliable industrial partner: an experienced (40-year), family-run manufacturer that has scaled into a structured, audit-ready operation. Personality traits: precise, unhurried, quality-obsessed, low-drama, execution-focused, allergic to overpromising."
+  },
+  "color_system": {
+    "primary": {
+      "name": "Canexpol Navy",
+      "hex": "#16294A",
+      "usage": "Primary structural chrome: header/nav bar, main headings, footer background, primary text on light surfaces. Recommended inference — carries the site's 'serious industrial partner' credibility signal; should anchor all intranet chrome (top bar, sidebar, section headers) rather than body backgrounds."
+    },
+    "secondary": [
+      {
+        "name": "Canexpol Orange (Action)",
+        "hex": "#E37A2C",
+        "usage": "Reserved exclusively for primary calls-to-action and interactive arrow accents (mirrors the site's 'ARROW_3-ORANGE.svg' CTA icon). In the intranet, use only for the single primary action on a screen (e.g. 'Submit for approval', 'Start workflow')."
+      }
+    ],
+    "neutrals": [
+      {
+        "name": "Surface White",
+        "hex": "#FFFFFF",
+        "usage": "Primary content background for cards, forms, tables."
+      },
+      {
+        "name": "Off-white Background",
+        "hex": "#F5F6F8",
+        "usage": "Page/canvas background behind cards, to separate content zones without hard borders."
+      },
+      {
+        "name": "Charcoal Text",
+        "hex": "#2A2E35",
+        "usage": "Primary body text — higher contrast and more screen-friendly than pure black for dense operational reading."
+      },
+      {
+        "name": "Border Gray",
+        "hex": "#DEE1E6",
+        "usage": "Card borders, table dividers, input outlines."
+      },
+      {
+        "name": "Muted Gray Text",
+        "hex": "#6B7280",
+        "usage": "Secondary/meta text: timestamps, helper text, captions, breadcrumb separators."
+      }
+    ],
+    "accents": [
+      {
+        "name": "Compliance Blue-Gray",
+        "hex": "#4A6FA5",
+        "usage": "Reserved for certification/regulatory markers — the direct intranet analog of the site's GMP/ISO badge treatment.",
+        "constraints": "Use only for compliance, audit, or certification-status indicators. Never use decoratively; diluting this color into general UI reduces its meaning in a regulated environment where staff must trust status indicators at a glance."
+      }
+    ],
+    "semantic": {
+      "success": {
+        "hex": "#2E8B57",
+        "usage": "Approved / Go / Compliant / Passed QC — mirrors the implicit 'certified' meaning of the GMP/ISO badges."
+      },
+      "warning": {
+        "hex": "#D9A32B",
+        "usage": "Pending review, awaiting approval, nearing deadline, stock running low."
+      },
+      "danger": {
+        "hex": "#C0392B",
+        "usage": "Rejected, non-conformance, blocked batch, overdue, No-Go."
+      },
+      "info": {
+        "hex": "#3B7DD8",
+        "usage": "Neutral system notices, informational banners, process guidance."
+      }
+    },
+    "usage_principles": [
+      "Navy dominates structural chrome (nav, headers, footer) — never use it as a large body-content background, which would raise cognitive load in dense operational screens.",
+      "Orange is strictly single-use per screen: exactly one primary action should carry it, preserving the urgency signal the public site uses for its one CTA per page.",
+      "Neutrals should cover roughly 80% of any screen's surface area to support fast scanning of dense operational data (tables, forms, batch records).",
+      "Compliance Blue-Gray and the four semantic colors are the only colors allowed to carry status meaning; no other color should be used to imply state, to avoid ambiguity during audits.",
+      "Do not introduce additional accent hues beyond this palette — the source site itself uses only two brand accents (navy, orange) plus certification colors, and that restraint should be preserved internally."
+    ]
+  },
+  "typography": {
+    "base_family": "Recommended inference: a modern grotesque/geometric sans-serif consistent with the site's clean, evenly-spaced heading style (comparable to Inter, Sora, or Poppins) — exact webfont could not be confirmed from rendered markup alone; verify against theme CSS before final implementation.",
+    "fallbacks": ["-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
+    "scale": [
+      {
+        "token": "display",
+        "role": "Marketing-style page hero (rarely needed internally)",
+        "recommended_size": "2.75rem / 44px",
+        "weight": "700",
+        "letter_spacing": "-0.01em",
+        "line_height": "1.15",
+        "usage_notes": "Use only on top-level intranet landing/portal page, not on operational sub-pages."
+      },
+      {
+        "token": "h1",
+        "role": "Page title",
+        "recommended_size": "2rem / 32px",
+        "weight": "700",
+        "letter_spacing": "-0.01em",
+        "line_height": "1.2",
+        "usage_notes": "One per page, mirrors the single strong H1 pattern seen on each public page ('O nas', 'Produkcja kosmetyków...')."
+      },
+      {
+        "token": "h2",
+        "role": "Section header",
+        "recommended_size": "1.5rem / 24px",
+        "weight": "600",
+        "letter_spacing": "0",
+        "line_height": "1.3",
+        "usage_notes": "Used for module/section breaks (e.g. 'Certyfikaty i wyróżnienia', 'Liczby i fakty')."
+      },
+      {
+        "token": "h3",
+        "role": "Card / block title",
+        "recommended_size": "1.125rem / 18px",
+        "weight": "600",
+        "letter_spacing": "0",
+        "line_height": "1.35",
+        "usage_notes": "For process-step titles, FAQ questions, card headers."
+      },
+      {
+        "token": "body",
+        "role": "Primary reading text",
+        "recommended_size": "1rem / 16px",
+        "weight": "400",
+        "letter_spacing": "0",
+        "line_height": "1.55",
+        "usage_notes": "Default for descriptions, SOP content, form helper paragraphs."
+      },
+      {
+        "token": "label",
+        "role": "Form labels, table headers, nav items",
+        "recommended_size": "0.875rem / 14px",
+        "weight": "600",
+        "letter_spacing": "0.01em",
+        "line_height": "1.3",
+        "usage_notes": "Slightly bolder than body for scan-ability in dense tables/forms."
+      },
+      {
+        "token": "caption",
+        "role": "Meta text, timestamps, helper/error text",
+        "recommended_size": "0.75rem / 12px",
+        "weight": "400",
+        "letter_spacing": "0.01em",
+        "line_height": "1.4",
+        "usage_notes": "Use Muted Gray Text color; never use for content critical to task completion."
+      },
+      {
+        "token": "stat_number",
+        "role": "KPI/metric card figure",
+        "recommended_size": "2.25rem / 36px",
+        "weight": "700",
+        "letter_spacing": "-0.01em",
+        "line_height": "1.1",
+        "usage_notes": "Direct adaptation of the public site's stat blocks (e.g. '600', '40', '500 t')."
+      }
+    ],
+    "content_rules": [
+      "Primary language is Polish business register; avoid marketing superlatives ('wiodący', 'najlepszy', 'rewolucyjny') in all intranet copy.",
+      "Use precise operational verbs in imperative or infinitive form for actions: 'Zatwierdź', 'Odrzuć', 'Prześlij do akceptacji', 'Zgłoś niezgodność' — mirrors the site's direct, unembellished instructional tone.",
+      "Sentences should stay short and declarative, consistent with the source site's copy rhythm (average 10-18 words per sentence).",
+      "Avoid rhetorical or persuasive questions in UI copy (the FAQ pattern's questions are for the knowledge base only, not for interface microcopy).",
+      "Numbers and units (t, m², ml, l, %) should always be paired with a short label directly beneath, exactly as in the stat blocks — never left unlabeled."
+    ]
+  },
+  "layout_and_spacing": {
+    "grid": {
+      "columns": "12-column responsive grid",
+      "max_content_width": "1440px for portal/dashboard landing pages; 1600-1920px for data-dense screens (tables, batch records, reporting) where the marketing site's narrower content column would be too restrictive",
+      "breakpoints": [
+        { "name": "mobile", "min_width": "0px", "layout_behaviour": "Single column, stacked cards, collapsible grouped navigation (mirrors the site's slide-out mobile menu with 'who we are / what we offer / more' groups)" },
+        { "name": "tablet", "min_width": "768px", "layout_behaviour": "2-column card grids, sidebar collapses to icon rail" },
+        { "name": "desktop", "min_width": "1200px", "layout_behaviour": "Persistent sidebar + 3-4 column card grids, full data tables visible without horizontal scroll" },
+        { "name": "wide", "min_width": "1600px", "layout_behaviour": "Dashboards may add a secondary right-hand panel (activity feed, notifications) without cramping primary content" }
+      ]
+    },
+    "spacing_scale": [
+      { "token": "space-1", "value": "4px", "usage": "Icon-to-label gap, tight inline spacing" },
+      { "token": "space-2", "value": "8px", "usage": "Form field internal padding, chip padding" },
+      { "token": "space-3", "value": "12px", "usage": "Compact list-item spacing" },
+      { "token": "space-4", "value": "16px", "usage": "Default card padding, form field vertical rhythm" },
+      { "token": "space-6", "value": "24px", "usage": "Gap between cards in a grid" },
+      { "token": "space-8", "value": "32px", "usage": "Section-to-section vertical spacing" },
+      { "token": "space-12", "value": "48px", "usage": "Major module separation on dashboard/landing pages; the site's own rhythm uses generous section spacing (e.g. between 'Liczby i fakty' and 'Przykłady realizacji'), and intranet pages should compress this by roughly 30-40% to prioritize information density over breathing room, since internal users prioritize speed over persuasion." }
+    ],
+    "cards_and_blocks": {
+      "card_styles": [
+        { "type": "KPI/stat card", "background": "Surface White", "border": "1px solid Border Gray", "shadow": "none", "corner_radius": "8px", "usage": "Direct adaptation of homepage stat blocks (600 marek, 40 lat, 500 t) for dashboard metrics." },
+        { "type": "process/workflow step card", "background": "Surface White", "border": "1px solid Border Gray", "shadow": "none", "corner_radius": "8px", "usage": "Adaptation of the numbered 01-05 'Od briefu do dostawy' pattern for approval/production workflow stages." },
+        { "type": "content/knowledge card", "background": "Surface White", "border": "1px solid Border Gray", "shadow": "0 1px 2px rgba(0,0,0,0.04)", "corner_radius": "10px", "usage": "Adaptation of product-category and blog-post cards for SOP/knowledge-base entries." },
+        { "type": "alert/status card", "background": "Tinted neutral (5-8% semantic color over white)", "border": "1px solid semantic color at 40% opacity", "shadow": "none", "corner_radius": "8px", "usage": "New pattern (recommended inference) reusing the certification-badge visual logic for compliance/status notices." }
+      ],
+      "numbered_steps": {
+        "description": "The public site's clearest transferable structural device: sequential two-digit numbers (01, 02, 03...) paired with a short bold title and one sentence of explanation, used for the end-to-end production process.",
+        "visual_pattern": "Large muted numeral positioned top-left or inline before the title, title in h3 weight, one short supporting sentence beneath in body text; steps are laid out horizontally on desktop and stacked on mobile.",
+        "do": [
+          "Use for any sequential process: order approval stages, batch release workflow, onboarding checklists",
+          "Keep each step to one short sentence, matching the source site's brevity",
+          "Visually indicate current/completed/upcoming step state using the semantic color set"
+        ],
+        "dont": [
+          "Do not use numbered steps for non-sequential content (e.g. a simple feature list) — reserve the pattern for genuine process order, matching its meaning on the source site",
+          "Do not exceed 6-7 steps per module without pagination or grouping"
+        ]
+      },
+      "what_if_blocks": {
+        "description": "Not present on the public site. Recommended inference: a conditional-guidance block for SOP/exception handling, needed for regulated production and QC documentation where staff must know what to do when a standard path fails (e.g. raw material shortage, failed stability test).",
+        "visual_pattern": "Collapsed-by-default card with a distinct left border in Compliance Blue-Gray or Warning color, labelled 'Jeżeli...' / 'W przypadku...', expanding to short instructional text plus a link to the responsible role or escalation contact.",
+        "usage_rules": [
+          "Use sparingly, only for genuine deviation/exception paths in regulated processes",
+          "Always name the responsible role or next action, never leave a dead-end instruction",
+          "Do not use decoratively to break up long text — every what-if block must correspond to a real procedural branch"
+        ]
+      }
+    }
+  },
+  "iconography_and_illustration": {
+    "style": "Flat, minimal line icons combined with fixed-mark certification badges (GMP, ISO) reproduced identically across every page; the site is photography-led (professional but restrained product/team photography) rather than illustration-led — there is no decorative illustration system to inherit.",
+    "line_weight": "Medium (approx. 1.5-2px at 24px icon size), consistent with the arrow and process icons observed",
+    "corner_style": "Softly rounded terminals, matching the rounded card corners used throughout",
+    "filled_vs_outline": "Mixed: process/navigation icons (arrows, plus/minus for FAQ) are outline style; certification badges (GMP/ISO/Forbes/Gazele) are solid, fixed brand marks that must never be redrawn or restyled",
+    "usage_rules": [
+      "Certification and award marks (GMP, ISO, Forbes, Gazele Biznesu) must always be reproduced as fixed, unmodified assets — never recolored or simplified, exactly as done consistently across the source site",
+      "Functional UI icons (arrows, chevrons, plus/minus) may be restyled to match the intranet's icon set but must keep the same medium line weight and rounded terminals for visual continuity",
+      "Do not introduce a decorative illustration style (e.g. isometric or hand-drawn illustration) — it is absent from the brand and would break continuity with the source site's photography-led, credibility-first tone"
+    ],
+    "do": [
+      "Use simple, single-color line icons for navigation and functional actions",
+      "Treat compliance/certification icons as immutable trust marks",
+      "Keep icon sizing consistent within a given component (e.g. all step-card icons the same size)"
+    ],
+    "dont": [
+      "Don't mix filled and outline icon styles within the same navigation level",
+      "Don't use icons purely decoratively without a functional or status meaning",
+      "Don't recolor certification badges to match arbitrary UI accent colors"
+    ]
+  },
+  "components": {
+    "buttons": {
+      "variants": [
+        { "name": "Primary (Orange filled)", "default_state": "Orange background (#E37A2C), white text, trailing arrow icon, 8px corner radius", "hover_state": "Slightly darkened orange (~10% darker), arrow shifts right 2px", "disabled_state": "40% opacity, no hover motion", "usage": "Single primary action per screen — 'Submit', 'Approve', 'Start workflow' — mirrors the site's one CTA per page discipline" },
+        { "name": "Secondary (Navy outline)", "default_state": "Transparent background, 1.5px Navy border, Navy text", "hover_state": "Light navy-tinted background fill (8% opacity)", "disabled_state": "40% opacity border and text", "usage": "Secondary actions — 'Cancel', 'Save draft', 'View details'" },
+        { "name": "Ghost/text link", "default_state": "No background, Navy or Orange text, trailing chevron/arrow", "hover_state": "Underline appears", "disabled_state": "Muted Gray text, no underline on hover", "usage": "Inline navigation and 'Read more'-style links, mirroring the site's 'Read more' and 'Przeczytaj' link pattern" }
+      ],
+      "general_rules": [
+        "Never place two Primary buttons in the same view — reproduces the source site's strict one-CTA-per-page discipline",
+        "All buttons carry a directional icon only when they trigger navigation or submission, not for purely toggling actions"
+      ]
+    },
+    "forms": {
+      "fields": [
+        { "type": "text input", "label_behaviour": "Static label above field (not floating), matching the site's simple, unambiguous single visible label pattern (e.g. 'Enter your email')", "error_state": "Danger-colored 1.5px border, error icon, short inline message below field", "helper_text": "Muted Gray caption below field, used sparingly" },
+        { "type": "select/dropdown", "label_behaviour": "Static label above field", "error_state": "Danger-colored border with inline message", "helper_text": "Used when options need brief clarification (e.g. batch status categories)" },
+        { "type": "file upload", "label_behaviour": "Static label + drag-and-drop zone with icon", "error_state": "Danger border with file-type/size error message", "helper_text": "Always state accepted formats and max size explicitly (relevant for documentation/QC attachments)" },
+        { "type": "checkbox/consent", "label_behaviour": "Inline label to the right of the control", "error_state": "Danger-colored label text if a required checkbox is unchecked on submit", "helper_text": "Used for approval/acknowledgement confirmations" }
+      ],
+      "validation_feedback": [
+        "Validate inline, on blur, rather than only on submit — reduces friction in data-heavy operational forms (batch records, product briefs)",
+        "Error messages must be specific and actionable ('Podaj wartość liczbową większą od 0'), never generic ('Błąd')",
+        "Success confirmation should be a brief inline or toast message, not a full-page redirect, to keep users in flow during multi-step data entry"
+      ]
+    },
+    "navigation": {
+      "primary_nav_pattern": "Adapt the site's intent-grouped navigation ('who we are' / 'what we offer' / 'more') into a function-grouped intranet sidebar, e.g. 'My Work' / 'Departments' (R&D, Production, QC, Warehouse, Sales, Export) / 'Resources' (SOPs, Forms, Contacts) — same grouping logic, new labels suited to internal roles.",
+      "secondary_nav_pattern": "Within a department section, use a horizontal tab bar or left sub-nav for sub-areas (e.g. within Production: Batch Records / Equipment / Schedules), echoing the site's simple top-level + sub-page structure ('offer' -> 'capabilities').",
+      "mobile_nav_pattern": "Collapse into a slide-out panel with the same grouped-heading structure as the desktop sidebar, matching the site's mobile slide-out menu behaviour exactly.",
+      "active_state_rules": [
+        "Active nav item uses Navy background with white text (or Orange left-border indicator) — must be unambiguous since operational users navigate between many similar-looking department pages daily",
+        "Never rely on color alone for active state; always pair with bold weight or an indicator bar for accessibility"
+      ]
+    },
+    "status_and_alerts": {
+      "patterns": [
+        { "type": "Compliance/Certified status chip", "color": "Compliance Blue-Gray on tinted background", "icon_usage": "Small checkmark or badge icon, direct analog to GMP/ISO marks", "tone_of_message": "Neutral, factual — states a certified/compliant condition" },
+        { "type": "Success/Approved banner", "color": "Success green", "icon_usage": "Checkmark", "tone_of_message": "Brief confirmation, e.g. 'Partia zatwierdzona.'" },
+        { "type": "Warning/Pending banner", "color": "Warning amber", "icon_usage": "Exclamation triangle", "tone_of_message": "States what is pending and who owns the next action" },
+        { "type": "Danger/Non-conformance banner", "color": "Danger red", "icon_usage": "Alert/stop icon", "tone_of_message": "Direct, unambiguous, states the issue and required action without alarmist language, matching the source site's calm, low-drama tone even for negative states" },
+        { "type": "Info banner", "color": "Info blue", "icon_usage": "Info circle", "tone_of_message": "Neutral system notice" }
+      ]
+    },
+    "checklists_and_go_no_go": {
+      "checkbox_pattern": "Square checkbox with rounded 2px corners, Success-green fill and white checkmark when checked, matching the card corner-radius language used site-wide",
+      "go_no_go_visuals": "Two-state pill/chip component: 'GO' in Success green, 'NO-GO' in Danger red — recommended inference modeled directly on the fixed-badge visual weight of the site's GMP/ISO marks, since both communicate a binary certified/not-certified condition",
+      "usage_rules": [
+        "Reserve GO/NO-GO chips exclusively for formal release/quality-gate decisions (e.g. batch release, stability test pass/fail) to preserve their weight",
+        "Checklists used for general task tracking (non-regulatory) should use a neutral gray checkbox, not the Success-green regulatory checkbox, to keep quality-critical checklists visually distinct from routine to-do items"
+      ]
+    }
+  },
+  "content_and_microcopy": {
+    "language_rules": [
+      "Default to Polish for all internal content; provide English only where the intranet serves export/international staff, mirroring the site's PL/EN parity",
+      "Avoid persuasive or promotional phrasing anywhere in the interface — internal copy states facts and required actions",
+      "Use consistent, controlled vocabulary for regulated terms (partia, receptura, seria, niezgodność, zwolnienie partii) rather than synonyms, to support audit traceability",
+      "Keep button and link labels as verbs or short verb phrases, not nouns (e.g. 'Zatwierdź recepturę', not 'Zatwierdzenie')"
+    ],
+    "voice_and_tone_examples": [
+      { "situation": "Confirming a completed action", "good_example": "Partia nr 2026-114 została zwolniona do dystrybucji.", "bad_example": "Świetnie! Twoja partia jest już gotowa do wysyłki! 🎉" },
+      { "situation": "Reporting an error", "good_example": "Nie można zapisać formularza: pole 'Data ważności' jest wymagane.", "bad_example": "Ups, coś poszło nie tak." },
+      { "situation": "Prompting a pending approval", "good_example": "Receptura oczekuje na akceptację Kierownika Laboratorium od 2 dni.", "bad_example": "Nie zwlekaj — zatwierdź recepturę już teraz!" }
+    ],
+    "localization": {
+      "primary_language": "Polish (pl-PL)",
+      "secondary_languages": ["English (en)"],
+      "rules": [
+        "Maintain structurally parallel PL/EN content, mirroring the site's mirrored page pairs, rather than partial or inconsistent translation",
+        "Do not machine-translate regulatory/compliance terminology without review, since GMP/ISO/quality terms carry legal precision",
+        "Keep the language switcher in the same fixed top-bar position used on the public site for consistency across public and internal properties"
+      ]
+    }
+  },
+  "accessibility_and_responsiveness": {
+    "contrast_rules": [
+      "Canexpol Navy (#16294A) on white passes WCAG AA for all text sizes and should be the default text/heading color",
+      "Canexpol Orange (#E37A2C) on white does not reliably pass AA for small body text; restrict orange to large text (18px+/bold 14px+), icons, and button fills with white text on top, never as small body copy",
+      "All semantic status colors must be paired with an icon or text label, never color alone, given the regulated context where misreading a status could have compliance consequences",
+      "Maintain minimum 4.5:1 contrast for all body text and 3:1 for large text and UI component boundaries"
+    ],
+    "focus_and_keyboard": [
+      "All interactive elements (buttons, form fields, accordion headers, nav items) must have a visible focus ring (2px, Compliance Blue-Gray or Info blue) since operational staff may rely on keyboard/scanner-based input in production environments",
+      "FAQ/SOP accordions must be operable via keyboard (Enter/Space to expand) and expose expanded/collapsed state to assistive technology",
+      "Multi-step workflow forms (batch records, approvals) must support logical tab order matching the visual step sequence"
+    ],
+    "responsive_principles": [
+      "Below 768px, collapse grouped navigation into the same slide-out accordion pattern used on the public site, preserving group headings ('Departments', 'Resources') as non-clickable section labels",
+      "Data-dense tables (batch records, stock lists) should convert to stacked card views on mobile rather than horizontal scroll, since floor/warehouse staff are the most likely mobile users",
+      "KPI/stat cards reflow from a 4-column desktop grid to a 2-column tablet grid to a single column on mobile, mirroring the stat block behaviour on the public homepage",
+      "Numbered step/workflow modules stack vertically below 768px with the numeral moved above the title, matching the site's own mobile step behaviour"
+    ]
+  }
+}

@@ -1,0 +1,992 @@
+<!--
+opis: Klikalna makieta HTML Intranetu Canexpol (jeden plik) ze scenariuszem testowym w panelu z prawej: 19 kroków od logowania z drugim składnikiem przez pulpit i zadania do Struktury i kontaktów zakładu w Mińsku oraz katalogu aplikacji; liczniki na żywo, notatki do pobrania w .md.
+rodzaj: wynik
+zadanie: ZAD-007
+kamien: KM-1 Makieta HTML
+rozmowa: km1MakietaHtml
+zmiana: 24.11.2026, km1MakietaHtml
+status: do akceptacji
+-->
+<!DOCTYPE html>
+<!--
+opis: Klikalna makieta HTML Intranetu Canexpol w jednym pliku ze scenariuszem testowym (19 kroków, panel z prawej, notatki do pobrania): logowanie z drugim składnikiem, pulpit z licznikami, zadania z decyzją człowieka, Struktura i kontakty dla zakładu w Mińsku, katalog aplikacji z Zamówieniami Surowców i PPWR jako wkrótce. Dane przykładowe.
+rodzaj: wynik
+zadanie: ZAD-007
+etap: KM-1
+rozmowa: km1MakietaHtml
+zmiana: 24.11.2026, km1MakietaHtml (Paweł Mazek): dopisany scenariusz testowy i liczniki na żywo
+status: do akceptacji
+slowa: makieta, HTML, powłoka, logowanie, pulpit, zadania, struktura, kontakty, aplikacje, marka Canexpol, scenariusz testowy
+-->
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intranet Canexpol — makieta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Marka Canexpol według canexpol.waw.pl (zmienne --can-* ze strony, stan 18.11.2026).
+   Układ powłoki według produktu Intranet (SmallBigSteps/intranet, docs/external/brand). */
+:root{
+  --can-black:#141112; --can-text:#191414; --can-elev:#231f20; --can-dark-line:#332d2e;
+  --can-orange:#f64e23; --can-blue:#123fc2; --can-blue-2:#315fdc; --can-cyan:#35c0dc;
+  --can-purple:#7474d8; --can-yellow:#edff48;
+  --can-soft:#f5f5f5; --can-soft-2:#f2f2f2; --white:#fff;
+  --line:rgba(25,20,20,.12); --line-soft:rgba(25,20,20,.07);
+  --muted:#6b6566; --on-dark:#d9d4d4; --on-dark-muted:#8f8889;
+  --ok:#1e7a45; --warn:#b26a00; --bad:#c0392b; --info:#123fc2;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;
+  --r:6px; --r-sm:4px;
+  --sidebar-w:284px;
+  --f-head:'Poppins',system-ui,sans-serif;
+  --f-body:'DM Sans',system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--f-body);font-size:15px;line-height:1.5;color:var(--can-text);background:var(--can-soft);-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+a{color:var(--can-blue);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3{font-family:var(--f-head);font-weight:600;letter-spacing:-.01em}
+.mono{font-family:var(--f-mono);font-size:13px}
+td.mono{white-space:nowrap}
+#pulpit-team .em{display:none}
+.dir-layout>*{min-width:0}
+.muted{color:var(--muted)}
+.caption{font-size:12px;color:var(--muted)}
+.hidden{display:none!important}
+
+/* Pasek makiety */
+.mockbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--can-yellow);color:var(--can-text);
+  font-size:12px;padding:6px 16px;display:flex;gap:16px;align-items:center;border-top:1px solid var(--line)}
+.mockbar strong{font-family:var(--f-head)}
+.mockbar a{color:var(--can-text);text-decoration:underline}
+
+/* ---------- Logowanie ---------- */
+.login{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.login__brand{background:var(--can-black);color:var(--white);padding:var(--s7);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.login__brand::after{content:"";position:absolute;right:-120px;bottom:-120px;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,var(--can-orange),transparent 60%),radial-gradient(circle at 70% 70%,var(--can-blue-2),transparent 60%);opacity:.55}
+.login__brand h2{font-size:40px;line-height:1.1;max-width:420px;font-weight:600}
+.login__brand h2 em{font-style:normal;color:var(--can-orange)}
+.login__brand p{color:var(--on-dark);max-width:420px;margin-top:var(--s4)}
+.login__form{display:flex;align-items:center;justify-content:center;padding:var(--s7);background:var(--white)}
+.login__box{width:100%;max-width:380px}
+.login__box h1{font-size:26px;margin-bottom:var(--s2)}
+.login__box .lead{color:var(--muted);margin-bottom:var(--s6)}
+.steps{display:flex;gap:var(--s2);margin-bottom:var(--s5)}
+.steps span{flex:1;height:3px;background:var(--line);border-radius:2px}
+.steps span.on{background:var(--can-orange)}
+.code{display:flex;gap:var(--s2)}
+.code input{width:48px;height:56px;text-align:center;font-family:var(--f-mono);font-size:22px}
+
+/* ---------- Powłoka ---------- */
+.app{display:flex;min-height:100vh}
+.sidebar{width:var(--sidebar-w);background:var(--can-black);color:var(--on-dark);flex-shrink:0;display:flex;flex-direction:column;position:sticky;top:0;height:calc(100vh - 31px);overflow-y:auto}
+.sidebar__logo{padding:22px var(--s5);border-bottom:1px solid var(--can-dark-line);display:flex;flex-direction:column;gap:6px}
+.sidebar__logo .sys{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-muted)}
+.sidebar__section{padding:var(--s5) var(--s5) var(--s2);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-dark-muted)}
+.nav{display:flex;align-items:center;gap:var(--s3);padding:10px var(--s5);font-size:14px;white-space:nowrap;color:var(--on-dark);border-left:3px solid transparent;cursor:pointer;user-select:none}
+.nav:hover{background:var(--can-elev);text-decoration:none}
+.nav.on{background:var(--can-elev);border-left-color:var(--can-orange);color:var(--white);font-weight:600}
+.nav .ico{width:18px;height:18px;flex-shrink:0;opacity:.85}
+.nav .badge{margin-left:auto;font-family:var(--f-mono);font-size:12px;color:var(--on-dark-muted)}
+.nav .badge.alert{color:var(--can-orange);font-weight:600}
+.nav .soon{margin-left:auto;font-size:10px;letter-spacing:.04em;color:var(--on-dark-muted);border:1px solid var(--can-dark-line);border-radius:10px;padding:0 6px}
+.nav.off{color:var(--on-dark-muted)}
+.sidebar__foot{margin-top:auto;padding:var(--s4) var(--s5);border-top:1px solid var(--can-dark-line);font-size:12px;color:var(--on-dark-muted)}
+
+.main{flex:1;min-width:0;display:flex;flex-direction:column;padding-bottom:40px}
+.topbar{background:var(--white);border-bottom:1px solid var(--line);padding:10px var(--s5);display:flex;align-items:center;gap:var(--s4);position:sticky;top:0;z-index:5}
+.search{flex:1;max-width:440px;display:flex;align-items:center;gap:var(--s2);background:var(--can-soft);border:1px solid var(--line);border-radius:var(--r);padding:8px 12px;color:var(--muted);font-size:14px}
+.search input{border:0;background:transparent;outline:0;flex:1}
+.shortcuts{display:flex;gap:var(--s2);margin-left:auto}
+.shortcut{display:flex;align-items:center;gap:var(--s2);border:1px solid var(--line);border-radius:var(--r);padding:6px 12px;font-size:13px;background:var(--white);cursor:pointer;min-height:36px}
+.shortcut:hover{border-color:var(--can-text)}
+.shortcut b{font-family:var(--f-mono);font-size:14px}
+.shortcut b.bad{color:var(--bad)}
+.iconbtn{position:relative;width:38px;height:38px;border:1px solid var(--line);border-radius:var(--r);background:var(--white);display:grid;place-items:center}
+.iconbtn .dot{position:absolute;top:6px;right:7px;width:8px;height:8px;border-radius:50%;background:var(--can-orange);border:2px solid var(--white)}
+.me{display:flex;align-items:center;gap:var(--s2);font-size:13px;line-height:1.2}
+.me small{display:block;color:var(--muted);font-size:12px}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--can-text);color:var(--white);display:grid;place-items:center;font-family:var(--f-head);font-size:13px;font-weight:600;flex-shrink:0}
+.avatar.lg{width:64px;height:64px;font-size:22px}
+.avatar.c1{background:var(--can-blue)}.avatar.c2{background:var(--can-orange)}.avatar.c3{background:var(--can-purple)}.avatar.c4{background:#0f8aa3}
+
+.pagehead{background:var(--white);border-bottom:1px solid var(--line);padding:var(--s5) var(--s6) var(--s4)}
+.crumbs{font-size:12px;color:var(--muted);margin-bottom:var(--s2)}
+.crumbs a{color:var(--muted)}
+.pagehead h1{font-size:26px;display:flex;align-items:center;gap:var(--s3)}
+.pagehead h1::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--can-orange);display:inline-block}
+.pagehead .sub{color:var(--muted);margin-top:var(--s1)}
+.content{padding:var(--s5) var(--s6);max-width:1320px;width:100%}
+
+/* ---------- Elementy ---------- */
+.btn{display:inline-flex;align-items:center;gap:var(--s2);border-radius:var(--r);padding:9px 16px;font-size:14px;font-weight:600;border:1px solid transparent;min-height:38px;white-space:nowrap}
+.btn--accent{background:var(--can-orange);color:var(--white)}
+.btn--accent:hover{background:#e04318}
+.btn--dark{background:var(--can-text);color:var(--white)}
+.btn--second{background:var(--white);border-color:var(--can-text);color:var(--can-text)}
+.btn--ghost{background:transparent;color:var(--can-text);border-color:var(--line)}
+.btn--danger{background:var(--white);border-color:var(--bad);color:var(--bad)}
+.btn--block{width:100%;justify-content:center}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.field{margin-bottom:var(--s4)}
+.field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.input,.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;background:var(--white);font-size:15px}
+.field input:focus,.field textarea:focus,.code input:focus{outline:2px solid var(--can-blue-2);outline-offset:1px;border-color:transparent}
+.field .help{font-size:12px;color:var(--muted);margin-top:4px}
+.bar{display:flex;gap:var(--s2);align-items:center;margin-bottom:var(--s4);flex-wrap:wrap}
+.chip{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:13px;display:inline-flex;align-items:center;gap:var(--s2);cursor:pointer;min-height:34px}
+.chip.on{background:var(--can-text);color:var(--white);border-color:var(--can-text)}
+.chip .n{font-family:var(--f-mono);font-size:12px;opacity:.7}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:12px;background:var(--can-soft-2);color:var(--can-text);white-space:nowrap}
+.tag.ok{background:#e3f2e9;color:var(--ok)}.tag.warn{background:#fbefd9;color:var(--warn)}.tag.bad{background:#f8e1de;color:var(--bad)}
+.tag.info{background:#e3e9fa;color:var(--can-blue)}.tag.ext{background:#fde6df;color:#b8340f}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);margin-bottom:var(--s5)}
+.card__head{padding:var(--s4) var(--s5);border-bottom:1px solid var(--line);font-family:var(--f-head);font-weight:600;display:flex;align-items:center;gap:var(--s3)}
+.card__head .right{margin-left:auto;font-family:var(--f-body);font-weight:400;font-size:13px}
+.card__body{padding:var(--s5)}
+.kv{display:grid;grid-template-columns:200px 1fr;gap:10px var(--s4);font-size:14px}
+.kv dt{color:var(--muted)}
+.note{border-left:3px solid var(--can-blue);background:#eef2fc;padding:var(--s3) var(--s4);border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:14px}
+.note.warn{border-color:var(--can-orange);background:#fff1ec}
+.grid{display:grid;gap:var(--s4)}
+.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:2fr 1fr}
+
+/* Tabela */
+.tablewrap{background:var(--white);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--can-soft)}
+td{padding:12px 14px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+tr.row{cursor:pointer}
+tr.row:hover td{background:#faf9f9}
+td.unread{width:6px;padding:0}
+td.unread i{display:block;width:4px;height:44px;background:var(--can-orange);border-radius:2px}
+.grouphead td{background:var(--can-soft-2);font-family:var(--f-head);font-weight:600;font-size:13px;padding:8px 14px}
+.grouphead .counts{font-family:var(--f-body);font-weight:400;color:var(--muted);margin-left:var(--s3)}
+.rowactions{display:flex;gap:var(--s2);justify-content:flex-end}
+.rowactions .btn{padding:5px 12px;min-height:32px;font-size:13px}
+
+/* Kafelki */
+.kpi{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:var(--s4) var(--s5);cursor:pointer}
+.kpi:hover{border-color:var(--can-text)}
+.kpi .lbl{font-size:13px;color:var(--muted)}
+.kpi .val{font-family:var(--f-head);font-size:34px;font-weight:600;line-height:1.15;margin-top:4px}
+.kpi .val.bad{color:var(--bad)}
+.kpi .foot{font-size:12px;color:var(--muted);margin-top:4px}
+.kpi.empty{border-style:dashed;cursor:default;background:transparent}
+.kpi.empty .val{color:var(--muted);font-family:var(--f-body);font-size:14px;font-weight:400;line-height:1.4;margin-top:10px}
+.tile{position:relative;background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);min-height:168px;cursor:pointer}
+.tile:hover{border-color:var(--can-text)}
+.tile .mark{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;color:var(--white)}
+.tile h3{font-size:17px}
+.tile .acc{font-size:13px;color:var(--muted);margin-top:auto}
+.tile .more{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:var(--r);border:1px solid transparent;background:transparent;display:grid;place-items:center;color:var(--muted)}
+.tile .more:hover{border-color:var(--line)}
+.tile.soon{background:var(--can-soft)}
+.tile.soon .mark{opacity:.75}
+.tile.slot{border-style:dashed;background:transparent;align-items:center;justify-content:center;text-align:center;color:var(--muted);cursor:default}
+.tile.slot .plus{width:44px;height:44px;border-radius:50%;border:1px dashed var(--muted);display:grid;place-items:center;font-size:22px}
+
+/* Lista powiadomień */
+.list{list-style:none}
+.list li{display:flex;gap:var(--s3);padding:var(--s3) 0;border-bottom:1px solid var(--line-soft);font-size:14px}
+.list li:last-child{border-bottom:0}
+.list .when{margin-left:auto;font-size:12px;color:var(--muted);white-space:nowrap}
+.list .dotm{width:8px;height:8px;border-radius:50%;background:var(--can-orange);margin-top:7px;flex-shrink:0}
+.list .dotm.read{background:var(--line)}
+
+/* Struktura */
+.tabs{display:flex;gap:var(--s5);border-bottom:1px solid var(--line);margin:var(--s4) 0 0}
+.tab{padding:10px 2px;font-weight:600;font-size:14px;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;background:none;border-top:0;border-left:0;border-right:0}
+.tab.on{color:var(--can-text);border-bottom-color:var(--can-orange)}
+.dir-layout{display:grid;grid-template-columns:1fr 360px;gap:var(--s5);align-items:start}
+.dept{background:var(--white);border:1px solid var(--line);border-radius:var(--r);margin-bottom:var(--s3)}
+.dept summary{list-style:none;padding:var(--s3) var(--s4);display:flex;align-items:center;gap:var(--s3);cursor:pointer;font-family:var(--f-head);font-weight:600}
+.dept summary::-webkit-details-marker{display:none}
+.dept summary .chev{transition:transform .15s;color:var(--muted)}
+.dept[open] summary .chev{transform:rotate(90deg)}
+.dept summary .cnt{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-weight:400}
+.dept summary .head{margin-left:auto;font-family:var(--f-body);font-weight:400;font-size:13px;color:var(--muted)}
+.person{display:flex;align-items:center;gap:var(--s3);padding:10px var(--s4);border-top:1px solid var(--line-soft);cursor:pointer;font-size:14px}
+.person:hover{background:#faf9f9}
+.person.sel{background:#fff1ec}
+.person .avatar{width:32px;height:32px;font-size:12px}
+.person .who{flex:1;min-width:0}
+.person .who small{display:block;color:var(--muted);font-size:12px}
+.person .ph{font-family:var(--f-mono);font-size:12px;color:var(--muted);width:90px}
+.person .em{font-size:13px;width:240px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:var(--r);position:sticky;top:76px}
+.panel__top{padding:var(--s5);display:flex;gap:var(--s4);align-items:center;border-bottom:1px solid var(--line)}
+.panel__top h3{font-size:18px}
+.panel__body{padding:var(--s5)}
+.panel .kv{grid-template-columns:110px 1fr;font-size:13px}
+.panel .empty{padding:var(--s6) var(--s5);color:var(--muted);text-align:center;font-size:14px}
+
+/* Schemat */
+.org{overflow-x:auto;padding:var(--s4) 0 var(--s6)}
+.org ul{display:flex;justify-content:center;padding-top:22px;position:relative;list-style:none}
+.org li{position:relative;padding:22px 6px 0;text-align:center}
+.org li::before,.org li::after{content:"";position:absolute;top:0;right:50%;width:50%;height:22px;border-top:1px solid var(--muted)}
+.org li::after{right:auto;left:50%;border-left:1px solid var(--muted)}
+.org li:only-child::before,.org li:only-child::after{display:none}
+.org li:only-child{padding-top:0}
+.org li:first-child::before,.org li:last-child::after{border:0 none}
+.org li:last-child::before{border-right:1px solid var(--muted);border-radius:0 6px 0 0}
+.org li:first-child::after{border-radius:6px 0 0 0}
+.org ul ul::before{content:"";position:absolute;top:0;left:50%;height:22px;border-left:1px solid var(--muted)}
+.node{display:inline-block;background:var(--white);border:1px solid var(--line);border-top:3px solid var(--can-text);border-radius:var(--r);padding:10px 12px;min-width:132px;max-width:150px;cursor:pointer;font-size:12px;line-height:1.35}
+.node:hover{border-color:var(--can-text)}
+.node b{display:block;font-family:var(--f-head);font-size:13px;margin-bottom:2px}
+.node .n{font-family:var(--f-mono);color:var(--muted)}
+.node.top{border-top-color:var(--can-orange);min-width:200px;max-width:none}
+.node.pion{border-top-color:var(--can-blue);background:var(--can-soft);min-width:180px;max-width:none;cursor:default}
+.stack{display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:14px;position:relative}
+.stack::before{content:"";position:absolute;top:0;bottom:20px;left:50%;border-left:1px solid var(--muted);z-index:0}
+.stack .node{position:relative;z-index:1;min-width:170px;max-width:190px}
+
+/* Okno */
+.modal-bg{position:fixed;inset:0;background:rgba(20,17,18,.45);display:grid;place-items:center;z-index:40}
+.modal{background:var(--white);border-radius:var(--r);width:520px;max-width:92vw}
+.modal .card__body{padding:var(--s5)}
+.toast{position:fixed;right:24px;bottom:56px;background:var(--can-text);color:var(--white);padding:12px 18px;border-radius:var(--r);font-size:14px;z-index:60;border-left:4px solid var(--can-orange)}
+
+@media (max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}.dir-layout{grid-template-columns:1fr}.panel{position:static}.person .em{display:none}.login{grid-template-columns:1fr}.login__brand{display:none}}
+
+/* ---------- Scenariusz testowy (panel z prawej) ---------- */
+.mockbar .scbtn{border:1px solid var(--can-text);background:transparent;border-radius:12px;padding:1px 10px;font-size:12px;font-weight:600}
+.mockbar .scbtn[aria-pressed="true"]{background:var(--can-text);color:var(--can-yellow)}
+.scen{position:fixed;top:0;right:0;bottom:0;width:400px;z-index:45;background:var(--white);border-left:1px solid var(--line);box-shadow:-8px 0 24px rgba(20,17,18,.08);display:none;flex-direction:column}
+body.scen-open .scen{display:flex}
+body.scen-open{padding-right:400px}
+body.scen-open .mockbar{right:400px}
+body.scen-open .modal-bg{right:400px}
+body.scen-open .toast{right:424px}
+.scen-h{display:flex;align-items:center;gap:4px;padding:12px 8px 12px 16px;background:var(--can-black);color:var(--white)}
+.scen-h h3{font-size:15px}
+.scen-h small{display:block;font-size:12px;color:var(--on-dark-muted);font-variant-numeric:tabular-nums}
+.scen-h .sp{flex:1}
+.scen-h button{background:transparent;border:0;color:var(--on-dark);padding:6px 8px;border-radius:var(--r-sm);font-size:13px}
+.scen-h button:hover{background:var(--can-elev)}
+.scen-prog{height:3px;background:var(--can-soft-2)}
+.scen-prog i{display:block;height:100%;background:var(--can-orange);transition:width .2s}
+.scen-sel{padding:10px 16px 0}
+.scen-sel select{width:100%;padding:7px 8px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--white);font-size:13px}
+.scen-b{flex:0 1 auto;max-height:60%;overflow:auto;padding:14px 16px}
+.scen-g{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.scen-o{font-size:13px;color:var(--muted);margin:0 0 12px}
+.scen-o ul{margin:4px 0;padding-left:18px}.scen-o li{margin-bottom:6px}
+.scen-b h4{font-family:var(--f-body);font-size:15.5px;font-weight:400;line-height:1.45;margin:0 0 14px}
+.scen-b h4 .nr{display:inline-block;font-family:var(--f-mono);font-weight:600;color:var(--can-orange);margin-right:8px}
+.scen-ow{background:var(--can-soft);border-radius:var(--r);padding:10px 12px;font-size:13.5px}
+.scen-ow span,.scen-us span{display:block;font-size:12px;color:var(--muted);margin-bottom:3px;font-weight:600}
+.scen-us{margin-top:10px;border:1px dashed var(--warn);background:#fbefd9;border-radius:var(--r);padding:9px 12px;font-size:13px}
+.scen-act{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.scen-ok{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:14px;padding:4px 12px;cursor:pointer;font-size:13px;user-select:none}
+.scen-ok input{margin:0}
+.scen-ok.on{background:#e3f2e9;color:var(--ok);border-color:var(--ok)}
+.scen-f{padding:10px 16px 12px;border-top:1px solid var(--line);background:var(--can-soft);display:flex;flex-direction:column;gap:8px;flex:1 1 0;min-height:170px}
+.scen-f label{font-size:12px;color:var(--muted)}
+.scen-f textarea{flex:1;min-height:90px;resize:none;font-size:13.5px;line-height:1.45;padding:8px;border:1px solid var(--line);border-radius:var(--r-sm)}
+.scen-f .rw{display:flex;align-items:center;gap:6px}.scen-f .rw .sp{flex:1}
+.scen-f .btn:disabled{opacity:.38;cursor:default}
+.btn--sm{padding:5px 12px;font-size:13px}
+@media (max-width:1100px){ .scen{top:auto;left:0;width:auto;height:50vh;border-left:0;border-top:1px solid var(--line)}
+  body.scen-open{padding-right:0;padding-bottom:50vh} body.scen-open .mockbar{right:0;bottom:50vh} body.scen-open .modal-bg{right:0;bottom:50vh} }
+@media print{ .scen,.mockbar{display:none!important} body.scen-open{padding:0} }
+</style>
+</head>
+<body>
+
+<!-- ==================== LOGOWANIE ==================== -->
+<section id="v-login" class="login">
+  <div class="login__brand">
+    <div data-logo="white"></div>
+    <div>
+      <h2>Wszystko, czego potrzebujesz do pracy, <em>w jednym miejscu.</em></h2>
+      <p>Zadania, ludzie i aplikacje zakładu w Mińsku Mazowieckim. Jedno konto do wszystkich narzędzi Canexpol.</p>
+    </div>
+    <div class="caption" style="color:var(--on-dark-muted)">Intranet Canexpol · wersja makiety 0.2 ze scenariuszem · 24.11.2026</div>
+  </div>
+  <div class="login__form">
+    <div class="login__box">
+      <div class="steps"><span class="on" id="st1"></span><span id="st2"></span></div>
+
+      <div id="login-step1">
+        <h1>Zaloguj się</h1>
+        <p class="lead">Użyj konta służbowego Canexpol.</p>
+        <div class="field"><label for="l-mail">Adres e-mail</label><input id="l-mail" type="email" value="marta.szymanska@przyklad.pl"></div>
+        <div class="field"><label for="l-pass">Hasło</label><input id="l-pass" type="password" value="makieta123"><div class="help"><a href="#" onclick="toast('Reset hasła: link wysyłany na adres służbowy (poza zakresem makiety).');return false">Nie pamiętasz hasła?</a></div></div>
+        <button class="btn btn--accent btn--block" onclick="loginStep(2)">Dalej</button>
+      </div>
+
+      <div id="login-step2" class="hidden">
+        <h1>Potwierdź, że to Ty</h1>
+        <p class="lead">Wpisz 6-cyfrowy kod z aplikacji uwierzytelniającej w telefonie.</p>
+        <div class="field">
+          <label>Kod jednorazowy</label>
+          <div class="code" id="code"></div>
+          <div class="help">Kod zmienia się co 30 sekund. W makiecie zadziała dowolny.</div>
+        </div>
+        <label style="display:flex;gap:8px;align-items:center;font-size:14px;margin-bottom:var(--s5)"><input type="checkbox" checked> Zapamiętaj to urządzenie na 30 dni</label>
+        <button class="btn btn--accent btn--block" onclick="enterApp()">Zaloguj</button>
+        <p style="margin-top:var(--s4);font-size:13px"><a href="#" onclick="loginStep(1);return false">← Wróć</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== POWŁOKA ==================== -->
+<div id="v-app" class="app hidden">
+  <nav class="sidebar">
+    <div class="sidebar__logo"><div data-logo="white"></div><span class="sys">Intranet · Mińsk Mazowiecki</span></div>
+    <div class="sidebar__section">Praca</div>
+    <a class="nav" data-go="pulpit"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Pulpit</a>
+    <a class="nav" data-go="zadania"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>Zadania <span class="badge alert" id="nav-task-count">7</span></a>
+    <a class="nav" data-go="powiadomienia"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>Powiadomienia <span class="badge">3</span></a>
+    <div class="sidebar__section">Aplikacje</div>
+    <a class="nav" data-go="struktura"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5V12M5 16.5V12h14v4.5"/></svg>Struktura i kontakty</a>
+    <a class="nav off" onclick="openApp('zs')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6L5 19a1.5 1.5 0 0 0 1.3 2h11.4A1.5 1.5 0 0 0 19 19l-5-10V3"/></svg>Zamówienia Surowców <span class="soon">wkrótce</span></a>
+    <a class="nav off" onclick="openApp('ppwr')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>PPWR <span class="soon">wkrótce</span></a>
+    <a class="nav" data-go="aplikacje"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>Wszystkie aplikacje</a>
+    <div class="sidebar__section">Konto</div>
+    <a class="nav" onclick="openPersonById('p-szymanska')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Mój profil</a>
+    <a class="nav" onclick="logout()"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Wyloguj</a>
+    <div class="sidebar__foot">Canexpol Group · zakład Mińsk Mazowiecki</div>
+  </nav>
+
+  <div class="main">
+    <div class="topbar">
+      <label class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input id="global-search" placeholder="Szukaj osoby, działu, zadania…" onkeydown="if(event.key==='Enter'){globalSearch(this.value)}"></label>
+      <div class="shortcuts">
+        <div class="shortcut" onclick="go('zadania','moje')">Moje zadania <b id="sc-mine">7</b></div>
+        <div class="shortcut" onclick="go('zadania','po')">Po terminie <b class="bad" id="sc-po">1</b></div>
+        <div class="shortcut" onclick="go('zadania','dzis')">Na dziś <b id="sc-dzis">2</b></div>
+      </div>
+      <button class="iconbtn" title="Powiadomienia" onclick="go('powiadomienia')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="dot"></span></button>
+      <div class="me"><span class="avatar c2">MS</span><span>Marta Szymańska<small>Specjalista ds. zamówień</small></span></div>
+    </div>
+
+    <!-- PULPIT -->
+    <section class="view" id="v-pulpit">
+      <div class="pagehead"><div class="crumbs">Intranet</div><h1>Dzień dobry, Marta</h1><div class="sub">Środa, 18.11.2026 · zakład Mińsk Mazowiecki</div></div>
+      <div class="content">
+        <div class="grid g4" style="margin-bottom:var(--s5)">
+          <div class="kpi" onclick="go('zadania','moje')"><div class="lbl">Moje zadania</div><div class="val" id="k-mine">7</div><div class="foot" id="k-mine-f">2 nieprzeczytane</div></div>
+          <div class="kpi" onclick="go('zadania','po')"><div class="lbl">Po terminie</div><div class="val bad" id="k-po">1</div><div class="foot" id="k-po-f">najstarsze od 17.11.2026</div></div>
+          <div class="kpi" onclick="go('zadania','dzis')"><div class="lbl">Termin dziś</div><div class="val" id="k-dzis">2</div><div class="foot" id="k-dzis-f">najbliższy o 14:00</div></div>
+          <div class="kpi empty"><div class="lbl">Wskaźniki mojej roli</div><div class="val">Pojawią się z aplikacją Zamówienia Surowców</div></div>
+        </div>
+        <div class="grid g2">
+          <div>
+            <div class="card">
+              <div class="card__head">Moje zadania na dziś <span class="right"><a href="#" onclick="go('zadania');return false">Wszystkie zadania →</a></span></div>
+              <div id="pulpit-tasks"></div>
+            </div>
+            <div class="card">
+              <div class="card__head">Aplikacje <span class="right"><a href="#" onclick="go('aplikacje');return false">Wszystkie aplikacje →</a></span></div>
+              <div class="card__body"><div class="grid g3" id="pulpit-apps"></div></div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <div class="card__head">Powiadomienia</div>
+              <div class="card__body" style="padding-top:var(--s2);padding-bottom:var(--s2)"><ul class="list" id="pulpit-notif"></ul></div>
+            </div>
+            <div class="card">
+              <div class="card__head">Mój zespół · Zaopatrzenie</div>
+              <div id="pulpit-team"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ZADANIA -->
+    <section class="view hidden" id="v-zadania">
+      <div class="pagehead"><div class="crumbs"><a href="#" onclick="go('pulpit');return false">Intranet</a> / Zadania</div><h1>Zadania</h1><div class="sub">Sprawy do rozstrzygnięcia przez Ciebie albo Twój zespół. Nic o skutku poza firmą nie dzieje się bez Twojej decyzji.</div></div>
+      <div class="content">
+        <div class="bar" id="task-filters"></div>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th style="width:6px;padding:0"></th><th>Zadanie</th><th style="width:170px">Aplikacja</th><th style="width:170px">Przypisane</th><th style="width:140px">Termin</th><th style="width:140px">Status</th><th style="width:190px"></th></tr></thead>
+            <tbody id="task-rows"></tbody>
+          </table>
+        </div>
+        <div class="caption" style="margin-top:var(--s3)" id="task-caption"></div>
+      </div>
+    </section>
+
+    <!-- SZCZEGÓŁY ZADANIA -->
+    <section class="view hidden" id="v-zadanie">
+      <div class="pagehead"><div class="crumbs"><a href="#" onclick="go('zadania');return false">Zadania</a> / <span id="td-app"></span></div><h1 id="td-title"></h1><div class="sub" id="td-sub"></div></div>
+      <div class="content" style="max-width:1000px" id="td-body"></div>
+    </section>
+
+    <!-- POWIADOMIENIA -->
+    <section class="view hidden" id="v-powiadomienia">
+      <div class="pagehead"><div class="crumbs"><a href="#" onclick="go('pulpit');return false">Intranet</a> / Powiadomienia</div><h1>Powiadomienia</h1></div>
+      <div class="content" style="max-width:900px"><div class="card"><div class="card__body"><ul class="list" id="notif-all"></ul></div></div></div>
+    </section>
+
+    <!-- STRUKTURA I KONTAKTY -->
+    <section class="view hidden" id="v-struktura">
+      <div class="pagehead">
+        <div class="crumbs"><a href="#" onclick="go('pulpit');return false">Intranet</a> / Aplikacje / Struktura i kontakty</div>
+        <h1>Struktura i kontakty</h1>
+        <div class="sub">Kto pracuje w zakładzie, na jakim stanowisku, komu podlega i jak się z nim skontaktować. Jedno źródło, trzy widoki.</div>
+        <div class="tabs">
+          <button class="tab on" data-tab="lista">Lista</button>
+          <button class="tab" data-tab="schemat">Schemat</button>
+          <button class="tab" data-tab="dzial">Widok działu</button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="dir-layout">
+          <div>
+            <div id="dir-lista">
+              <div class="bar">
+                <label class="search" style="max-width:none;background:var(--white)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input id="dir-q" placeholder="Szukaj po imieniu, nazwisku, stanowisku, numerze…" oninput="renderList()"></label>
+                <button class="chip" onclick="toggleAll(true)">Rozwiń wszystkie</button>
+                <button class="chip" onclick="toggleAll(false)">Zwiń</button>
+              </div>
+              <div id="dir-list-body"></div>
+            </div>
+            <div id="dir-schemat" class="hidden"><div class="card"><div class="card__body org" id="org"></div></div><div class="caption">Kliknij dział, aby otworzyć jego widok. Schemat czyta te same dane co lista. Podział na piony jest przykładowy.</div></div>
+            <div id="dir-dzial" class="hidden">
+              <div class="bar" id="dept-chips"></div>
+              <div id="dept-view"></div>
+            </div>
+          </div>
+          <aside class="panel" id="person-panel"><div class="empty">Wybierz osobę, aby zobaczyć jej kartę.</div></aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- APLIKACJE -->
+    <section class="view hidden" id="v-aplikacje">
+      <div class="pagehead"><div class="crumbs"><a href="#" onclick="go('pulpit');return false">Intranet</a> / Aplikacje</div><h1>Aplikacje</h1><div class="sub">Każda aplikacja działa w tej samej powłoce: jedno logowanie, wspólne zadania, powiadomienia i wygląd.</div></div>
+      <div class="content"><div class="grid g4" id="apps-all"></div></div>
+    </section>
+  </div>
+</div>
+
+<div class="mockbar"><strong>MAKIETA</strong> Intranet Canexpol · dane przykładowe, osoby i liczby zmyślone · nic nie jest zapisywane ani wysyłane
+  <button class="scbtn" id="btnScen" aria-pressed="false" title="Pokaż lub schowaj scenariusz testowy">Scenariusz</button>
+  <span style="margin-left:auto">Ekrany: <a href="#" onclick="logout();return false">Logowanie</a> · <a href="#" onclick="enterApp();return false">Pulpit</a> · <a href="#" onclick="enterApp('zadania');return false">Zadania</a> · <a href="#" onclick="enterApp('zadanie','t1');return false">Szczegóły zadania</a> · <a href="#" onclick="enterApp('struktura');return false">Struktura</a> · <a href="#" onclick="enterApp('aplikacje');return false">Aplikacje</a></span></div>
+
+<aside class="scen" id="scen" aria-label="Scenariusz testowy">
+  <div class="scen-h"><div><h3>Scenariusz testowy</h3><small id="scInfo"></small></div><span class="sp"></span>
+    <button id="scClr" title="Wyczyść odhaczenia (notatki zostają)">Wyczyść ✓</button>
+    <button id="scClose" title="Schowaj scenariusz" aria-label="Schowaj scenariusz">✕</button></div>
+  <div class="scen-prog"><i id="scProg"></i></div>
+  <div class="scen-sel"><select id="scSel" aria-label="Wybierz krok"></select></div>
+  <div class="scen-b" id="scBody" aria-live="polite"></div>
+  <div class="scen-f">
+    <label for="scNot" id="scNotLb">Notatka</label>
+    <textarea id="scNot" placeholder="Co się nie zgadza, co zmienić, decyzje, kto i do kiedy"></textarea>
+    <div class="rw"><button class="btn btn--ghost btn--sm" id="scPrev" title="Poprzedni krok (Alt+←)">Wstecz</button><span class="sp"></span>
+      <button class="btn btn--ghost btn--sm" id="scMd" title="Pobierz notatki ze scenariusza (.md)">Pobierz notatki</button>
+      <button class="btn btn--accent btn--sm" id="scNext" title="Następny krok (Alt+→)">Dalej</button></div>
+  </div>
+</aside>
+
+<div id="modal-root"></div>
+
+<script>
+/* ---------- Logo Canexpol (canexpol.waw.pl, plik nagłówka strony) ---------- */
+const LOGO = `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="26" viewBox="0 0 112 23" fill="none" aria-label="Canexpol"><path d="M19.3199 16.5853C18.1063 15.2603 17.4994 13.5605 17.4994 11.4888C17.4994 9.41714 18.1063 7.71287 19.3199 6.37973C20.5334 5.04425 22.0158 4.37815 23.7625 4.37815C25.5111 4.37815 26.8508 5.03192 27.7866 6.34108V4.52622H31.9969V18.4004H27.7866V16.3869C26.769 17.846 25.4091 18.5745 23.7024 18.5745C21.9958 18.5745 20.5334 17.911 19.3199 16.5853ZM26.8773 13.9996C27.4839 13.4026 27.7866 12.557 27.7866 11.4644C27.7866 10.3694 27.4839 9.52796 26.8773 8.93915C26.2704 8.35221 25.5732 8.05652 24.7841 8.05652C23.9967 8.05652 23.2996 8.3564 22.693 8.95312C22.086 9.54822 21.7813 10.3938 21.7813 11.4888C21.7813 12.5838 22.086 13.4231 22.693 14.0117C23.2996 14.6005 23.9967 14.8936 24.7841 14.8936C25.5732 14.8936 26.2704 14.5965 26.8773 13.9996Z" fill="#191414"></path><path d="M38.5609 4.5252V6.56496C39.4305 5.10609 40.8166 4.37712 42.7197 4.37712C44.2964 4.37712 45.5726 4.90773 46.5478 5.968C47.5234 7.02805 48.0122 8.47132 48.0122 10.2946V18.4015H43.8275V10.8673C43.8275 9.9707 43.593 9.27875 43.1262 8.79099C42.6594 8.30136 42.0145 8.05643 41.1932 8.05643C40.3737 8.05643 39.7287 8.30136 39.2621 8.79099C38.7932 9.27875 38.5609 9.9707 38.5609 10.8673V18.4015H34.3499V4.5252H38.5609Z" fill="#191414"></path><path d="M81.2475 6.34034C82.1832 5.03117 83.5234 4.37717 85.2722 4.37717C87.019 4.37717 88.4995 5.04328 89.7153 6.37898C90.9292 7.71236 91.5363 9.4164 91.5363 11.4885C91.5363 13.5606 90.9292 15.2607 89.7153 16.586C88.4995 17.9116 87.0312 18.5757 85.3082 18.5757C83.5851 18.5757 82.2312 17.8467 81.2475 16.3878V23H77.0367V4.52525H81.2475V6.34034ZM86.342 14.0119C86.9489 13.4233 87.2537 12.5835 87.2537 11.4885C87.2537 10.3936 86.9489 9.54794 86.342 8.95261C85.7349 8.35589 85.0378 8.05624 84.2507 8.05624C83.4631 8.05624 82.7639 8.35193 82.1573 8.93888C81.5501 9.52768 81.2475 10.3691 81.2475 11.4643C81.2475 12.5569 81.5501 13.403 82.1573 14C82.7639 14.5969 83.4631 14.8943 84.2507 14.8943C85.0378 14.8943 85.7349 14.6007 86.342 14.0119Z" fill="#191414"></path><path d="M94.455 16.6104C93.0668 15.301 92.3739 13.5772 92.3739 11.438C92.3739 9.30091 93.0629 7.58873 94.4432 6.30401C95.8214 5.01883 97.5283 4.37717 99.5614 4.37717C101.597 4.37717 103.3 5.01883 104.67 6.30401C106.04 7.58873 106.725 9.30091 106.725 11.438C106.725 13.5772 106.044 15.301 104.682 16.6104C103.32 17.9198 101.621 18.5754 99.5876 18.5754C97.5522 18.5754 95.8414 17.9198 94.455 16.6104ZM101.605 14.0505C102.164 13.4536 102.442 12.5916 102.442 11.4643C102.442 10.337 102.156 9.47902 101.581 8.89021C101.006 8.3014 100.325 8.00782 99.5375 8.00782C98.7504 8.00782 98.0732 8.3014 97.5064 8.89021C96.9411 9.47902 96.6567 10.3372 96.6567 11.4643C96.6567 12.5914 96.9492 13.4536 97.5322 14.0505C98.1131 14.6475 98.7982 14.9446 99.5876 14.9446C100.375 14.9446 101.048 14.6475 101.605 14.0505Z" fill="#191414"></path><path d="M112 0H107.789V18.4014H112V0Z" fill="#191414"></path><path d="M12.3776 13.0978C10.466 15.017 7.36727 15.0168 5.45589 13.0978C3.5445 11.1789 3.5445 8.06793 5.45589 6.149C7.36727 4.2303 10.4663 4.23007 12.3776 6.149L14.2171 7.99669L17.0624 5.13995L15.222 3.29342C11.7397 -0.202649 6.09386 -0.202649 2.61154 3.29319C-0.870552 6.78926 -0.870552 12.4576 2.61177 15.9534C6.0941 19.4495 11.7399 19.4495 15.222 15.9534L17.0752 14.096L14.2299 11.239L12.3776 13.0978Z" fill="#191414"></path><path d="M71.3642 4.52296L69.4062 7.74733L67.3485 4.52296H62.3799L66.807 11.462L62.3799 18.4016H66.9658L69.0892 15.0161L71.2341 18.4016H76.2027L74.9045 16.3662L71.6462 11.2699L76.0633 4.52296H71.3642Z" fill="#191414"></path><path d="M53.631 10.1954C53.7455 9.54768 54.0333 9.0236 54.4923 8.61662C54.9531 8.20988 55.5178 8.00779 56.1908 8.00779C56.8645 8.00779 57.4468 8.20988 57.94 8.61662C58.4308 9.0236 58.7111 9.54768 58.7754 10.1954H53.631ZM63.1584 11.5129C63.1584 9.27482 62.4933 7.52631 61.1629 6.26534C59.835 5.0067 58.1604 4.37715 56.143 4.37715C54.1235 4.37715 52.4789 5.01508 51.2068 6.29165C49.9346 7.56892 49.2999 9.28483 49.2999 11.4377C49.2999 13.593 49.9388 15.3212 51.2187 16.6225C52.4988 17.9256 54.1395 18.5754 56.143 18.5754C57.7677 18.5754 59.1961 18.1833 60.3521 17.2942C61.5281 16.3899 62.3931 15.2835 62.8461 13.8181H58.4206C58.4166 13.8239 58.3825 13.8186 58.3742 13.8232C57.9034 14.5336 57.1395 15.0237 56.2211 15.0237C54.8775 15.0237 53.8151 14.0177 53.6127 12.7267L53.6069 12.7248H63.0828C63.1357 12.302 63.1584 11.9944 63.1584 11.5129Z" fill="#191414"></path></svg>`;
+
+/* ---------- Dane przykładowe ---------- */
+const DEPTS = [
+  {id:'dyr', name:'Dyrekcja zakładu', place:'Budynek A, I piętro'},
+  {id:'prod', name:'Produkcja', place:'Hala produkcyjna, budynek B'},
+  {id:'lab', name:'Laboratorium R&D', place:'Budynek A, parter'},
+  {id:'qc', name:'Kontrola jakości', place:'Budynek A, parter'},
+  {id:'qa', name:'Zapewnienie jakości', place:'Budynek A, I piętro'},
+  {id:'plan', name:'Planowanie produkcji', place:'Budynek A, I piętro'},
+  {id:'zaop', name:'Zaopatrzenie', place:'Budynek A, I piętro'},
+  {id:'mag', name:'Magazyn', place:'Magazyn surowców, budynek C'},
+  {id:'ur', name:'Utrzymanie ruchu', place:'Warsztat, budynek B'},
+  {id:'bhp', name:'BHP i środowisko', place:'Budynek A, parter'},
+  {id:'kadry', name:'Kadry', place:'Budynek A, I piętro'},
+];
+// [id, imię i nazwisko, stanowisko, dział, przełożony, wewn., komórka]
+const P = [
+  ['p-zielinski','Tomasz Zieliński','Dyrektor zakładu','dyr',null,'100','600 100 100'],
+  ['p-lis','Iwona Lis','Asystentka dyrekcji','dyr','p-zielinski','101','600 100 101'],
+  ['p-wrobel','Agnieszka Wróbel','Kierownik produkcji','prod','p-zielinski','200','600 100 200'],
+  ['p-kaczmarek','Robert Kaczmarek','Mistrz zmiany I','prod','p-wrobel','211','600 100 211'],
+  ['p-sikora','Damian Sikora','Mistrz zmiany II','prod','p-wrobel','212','600 100 212'],
+  ['p-mazur','Paulina Mazur','Operator linii napełniania','prod','p-kaczmarek','221',null],
+  ['p-duda','Kamil Duda','Operator mieszalnika','prod','p-kaczmarek','222',null],
+  ['p-wozniak','Zofia Woźniak','Operator linii konfekcjonowania','prod','p-sikora','223',null],
+  ['p-pawlak','Monika Pawlak','Kierownik laboratorium','lab','p-zielinski','300','600 100 300'],
+  ['p-krawczyk','Joanna Krawczyk','Technolog','lab','p-pawlak','311','600 100 311'],
+  ['p-adamski','Michał Adamski','Laborant','lab','p-pawlak','312',null],
+  ['p-gorska','Ewa Górska','Kierownik kontroli jakości','qc','p-zielinski','400','600 100 400'],
+  ['p-wilk','Natalia Wilk','Analityk QC','qc','p-gorska','411',null],
+  ['p-nowicki','Paweł Nowicki','Analityk mikrobiologii','qc','p-gorska','412',null],
+  ['p-sobczak','Beata Sobczak','Pełnomocnik ds. GMP i ISO','qa','p-zielinski','450','600 100 450'],
+  ['p-baran','Łukasz Baran','Kierownik planowania','plan','p-zielinski','500','600 100 500'],
+  ['p-michalska','Karolina Michalska','Specjalista ds. zapotrzebowania','plan','p-baran','511','600 100 511'],
+  ['p-wojcik','Grzegorz Wójcik','Kierownik zaopatrzenia','zaop','p-zielinski','600','600 100 600'],
+  ['p-szymanska','Marta Szymańska','Specjalista ds. zamówień','zaop','p-wojcik','611','600 100 611'],
+  ['p-kubiak','Piotr Kubiak','Specjalista ds. zamówień','zaop','p-wojcik','612','600 100 612'],
+  ['p-pietrzak','Andrzej Pietrzak','Kierownik magazynu','mag','p-zielinski','700','600 100 700'],
+  ['p-jablonska','Sylwia Jabłońska','Specjalista ds. przyjęć magazynowych','mag','p-pietrzak','711','600 100 711'],
+  ['p-krol','Marcin Król','Magazynier','mag','p-pietrzak','712',null],
+  ['p-grabowski','Krzysztof Grabowski','Magazynier','mag','p-pietrzak','713',null],
+  ['p-dabrowski','Jacek Dąbrowski','Kierownik utrzymania ruchu','ur','p-zielinski','800','600 100 800'],
+  ['p-czarnecki','Adam Czarnecki','Technik utrzymania ruchu','ur','p-dabrowski','811','600 100 811'],
+  ['p-walczak','Renata Walczak','Specjalista BHP','bhp','p-zielinski','900','600 100 900'],
+  ['p-kalinowska','Dorota Kalinowska','Specjalista ds. kadr','kadry','p-zielinski','950','600 100 950'],
+].map(([id,name,role,dept,boss,ext,mob])=>({id,name,role,dept,boss,ext,mob,
+  mail:name.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ł/g,'l').replace(' ','.')+'@przyklad.pl'}));
+const ME = 'p-szymanska';
+const byId = Object.fromEntries(P.map(p=>[p.id,p]));
+const deptById = Object.fromEntries(DEPTS.map(d=>[d.id,d]));
+const headOf = d => P.find(p=>p.dept===d && (!p.boss || byId[p.boss].dept!==d));
+
+const APPS = [
+  {id:'dir', name:'Struktura i kontakty', status:'Działa', st:'ok', acc:'Masz dostęp', color:'var(--can-text)', go:'struktura',
+   desc:'Aktualny obraz organizacji zakładu: kto, na jakim stanowisku, w którym dziale, komu podlega i jak się skontaktować.', owner:'Dorota Kalinowska (Kadry)'},
+  {id:'zs', name:'Zamówienia Surowców', status:'W przygotowaniu', st:'warn', acc:'Wejście po uruchomieniu', color:'var(--can-orange)',
+   desc:'Przeliczanie zamówień klientów na zapotrzebowanie surowcowe, zbiorcze zamówienia u dostawców, przyjęcie dostawy z wykrywaniem rozbieżności. Pierwsza aplikacja dziedzinowa Canexpol.', owner:'do ustalenia'},
+  {id:'ppwr', name:'PPWR — opakowania', status:'W przygotowaniu', st:'warn', acc:'Wejście po uruchomieniu', color:'var(--can-blue)',
+   desc:'Dane opakowaniowe od dostawców i dokumentacja zgodności opakowań z rozporządzeniem UE 2025/40 (PPWR). Osobny projekt, ta sama powłoka.', owner:'do ustalenia'},
+];
+const APP_ICONS = {
+  dir:'<circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5V12M5 16.5V12h14v4.5"/>',
+  zs:'<path d="M9 3h6M10 3v6L5 19a1.5 1.5 0 0 0 1.3 2h11.4A1.5 1.5 0 0 0 19 19l-5-10V3"/>',
+  ppwr:'<path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>',
+};
+
+const TASKS = [
+  {id:'t1', app:'zs', title:'Szkic zamówienia do dostawcy — gliceryna roślinna 99,5%', sub:'1 200 kg · dostawca: Przykład Chem Sp. z o.o. · skutek poza firmą',
+   who:'Ja', due:'18.11.2026 14:00', dueKind:'dzis', status:['Skutek zewnętrzny','ext'], unread:true, mine:true},
+  {id:'t2', app:'zs', title:'Rozbieżność przy przyjęciu dostawy — masło shea', sub:'Przyjęto 180 kg z zamówionych 200 kg · WZ 2026/11/0457',
+   who:'Ja', due:'17.11.2026', dueKind:'po', status:['Po terminie','bad'], unread:true, mine:true},
+  {id:'t3', app:'zs', title:'Zmiana dostawcy zablokowana — pantenol D', sub:'Zastrzeżenie klienta: tylko dostawca z listy klienta',
+   who:'Ja', due:'18.11.2026 16:00', dueKind:'dzis', status:['Do decyzji','warn'], unread:false, mine:true},
+  {id:'t4', app:'zs', title:'Zbiorcze zapotrzebowanie, tydzień 48', sub:'14 surowców · 6 zleceń produkcyjnych',
+   who:'Zaopatrzenie', due:'20.11.2026', dueKind:'', status:['Nowe','info'], unread:true, mine:false},
+  {id:'t5', app:'ppwr', title:'Deklaracja zgodności opakowania — butelka PET 250 ml', sub:'Dokument od dostawcy opakowań do weryfikacji',
+   who:'Zaopatrzenie', due:'bez terminu', dueKind:'', status:['Nowe','info'], unread:false, mine:false},
+  {id:'t6', app:'dir', title:'Potwierdź swoje dane kontaktowe', sub:'Przegląd co 6 miesięcy · zmiana zajmie minutę',
+   who:'Ja', due:'30.11.2026', dueKind:'', status:['Przejęte',''], unread:false, mine:true},
+  {id:'t7', app:'dir', title:'Nowa osoba w zespole — Piotr Kubiak', sub:'Pokaż zespołowi i uzupełnij zastępstwo',
+   who:'Ja', due:'22.11.2026', dueKind:'', status:['Przejęte',''], unread:false, mine:true},
+  {id:'t8', app:'zs', title:'Potwierdzenie terminu dostawy — emulgator', sub:'Dostawca proponuje 03.12.2026 zamiast 28.11.2026',
+   who:'Ja', due:'21.11.2026', dueKind:'', status:['Do decyzji','warn'], unread:false, mine:true},
+  {id:'t9', app:'zs', title:'Surowiec bez certyfikatu dostawcy — kwas hialuronowy', sub:'Certyfikat GMP dostawcy wygasł 31.10.2026 · zamówienie wstrzymane',
+   who:'Ja', due:'25.11.2026', dueKind:'', status:['Wstrzymane','bad'], unread:false, mine:true},
+];
+const NOTIF = [
+  ['Piotr Kubiak dołączył do działu Zaopatrzenie','dziś 08:12',false],
+  ['Zadanie „Rozbieżność przy przyjęciu dostawy — masło shea” jest po terminie','dziś 07:00',false],
+  ['Karolina Michalska przekazała Ci zbiorcze zapotrzebowanie, tydzień 48','wczoraj 15:40',false],
+  ['Aplikacja Zamówienia Surowców: start testów planowany po akceptacji makiety','17.11.2026',true],
+  ['Zmieniono numer wewnętrzny działu Magazyn','14.11.2026',true],
+];
+const appName = id => APPS.find(a=>a.id===id).name;
+
+/* ---------- Nawigacja ---------- */
+let current = 'pulpit', taskFilter = 'moje', dirTab = 'lista', selPerson = null, selDept = 'zaop', curTask = null;
+/* Stan startowy do „Przywróć dane testowe”: zadania i dane kontaktowe wracają do wartości z 18.11.2026 09:40 */
+const TASKS0 = JSON.parse(JSON.stringify(TASKS)), P0 = P.map(p=>[p.ext,p.mob]);
+const otw = t => !t.done;
+function loginStep(n){
+  document.getElementById('login-step1').classList.toggle('hidden', n!==1);
+  document.getElementById('login-step2').classList.toggle('hidden', n!==2);
+  document.getElementById('st2').classList.toggle('on', n===2);
+  if(n===2){ const c=document.querySelector('#code input'); c && c.focus(); }
+}
+function enterApp(view='pulpit', arg){
+  document.getElementById('v-login').classList.add('hidden');
+  document.getElementById('v-app').classList.remove('hidden');
+  go(view, arg);
+}
+function logout(){
+  document.getElementById('v-app').classList.add('hidden');
+  document.getElementById('v-login').classList.remove('hidden');
+  loginStep(1); window.scrollTo(0,0);
+}
+function go(view, arg){
+  current = view;
+  document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));
+  document.getElementById('v-'+view).classList.remove('hidden');
+  const navKey = view==='zadanie' ? 'zadania' : view;
+  document.querySelectorAll('.nav[data-go]').forEach(n=>n.classList.toggle('on', n.dataset.go===navKey));
+  liczniki(); if(view==='pulpit') renderPulpit();
+  if(view==='zadania'){ if(arg) taskFilter=arg; renderTasks(); }
+  if(view==='zadanie') renderTask(arg);
+  if(view==='struktura'){ if(arg) selPerson=arg; renderDir(); }
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('.nav[data-go]').forEach(n=>n.addEventListener('click',()=>go(n.dataset.go)));
+
+/* ---------- Kafelki aplikacji ---------- */
+function tile(a){
+  if(a.slot) return `<div class="tile slot"><div class="plus">+</div><div><b>Miejsce na kolejną aplikację</b><div class="caption">Nowe aplikacje Canexpol pojawiają się tutaj po instalacji we wdrożeniu.</div></div></div>`;
+  return `<div class="tile ${a.st==='ok'?'':'soon'}" onclick="openApp('${a.id}')">
+    <button class="more" title="Opis, właściciel procesu" onclick="event.stopPropagation();appInfo('${a.id}')">⋯</button>
+    <div class="mark" style="background:${a.color}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">${APP_ICONS[a.id]}</svg></div>
+    <h3>${a.name}</h3>
+    <span class="tag ${a.st}" style="align-self:flex-start">${a.status}</span>
+    <div class="acc">${a.acc}</div></div>`;
+}
+function openApp(id){ const a=APPS.find(x=>x.id===id); if(a.go) go(a.go); else appInfo(id); }
+function appInfo(id){
+  const a=APPS.find(x=>x.id===id);
+  modal(`<div class="card__head">${a.name} <span class="tag ${a.st}" style="margin-left:8px">${a.status}</span></div>
+    <div class="card__body"><p style="margin-bottom:var(--s4)">${a.desc}</p>
+    <dl class="kv" style="grid-template-columns:150px 1fr"><dt>Właściciel procesu</dt><dd>${a.owner}</dd><dt>Dostęp</dt><dd>${a.acc}</dd></dl>
+    <div style="margin-top:var(--s5);display:flex;gap:var(--s2);justify-content:flex-end">${a.go?`<button class="btn btn--accent" onclick="closeModal();go('${a.go}')">Otwórz</button>`:''}<button class="btn btn--ghost" onclick="closeModal()">Zamknij</button></div></div>`);
+}
+function renderApps(){
+  document.getElementById('apps-all').innerHTML = APPS.map(tile).join('') + tile({slot:true});
+  document.getElementById('pulpit-apps').innerHTML = APPS.map(tile).join('');
+}
+
+/* ---------- Pulpit ---------- */
+function renderPulpit(){
+  const today = TASKS.filter(t=>otw(t) && t.mine && (t.dueKind==='dzis'||t.dueKind==='po'));
+  document.getElementById('pulpit-tasks').innerHTML = `<table><tbody>${today.length?'':'<tr><td style="padding:24px;text-align:center" class="muted">Na dziś nie masz zadań. Sprawdź <a href="#" onclick="go(\'zadania\',\'moje\');return false">wszystkie swoje zadania</a>.</td></tr>'}${today.map(t=>`
+    <tr class="row" onclick="go('zadanie','${t.id}')"><td class="unread">${t.unread?'<i></i>':''}</td>
+    <td><strong>${t.title}</strong><div class="caption">${appName(t.app)}</div></td>
+    <td class="mono" style="width:150px;${t.dueKind==='po'?'color:var(--bad)':''}">${t.due}</td>
+    <td style="width:150px"><span class="tag ${t.status[1]}">${t.status[0]}</span></td></tr>`).join('')}</tbody></table>`;
+  const nl = NOTIF.map(([t,w,r])=>`<li><span class="dotm ${r?'read':''}"></span><span>${t}</span><span class="when">${w}</span></li>`).join('');
+  document.getElementById('pulpit-notif').innerHTML = NOTIF.slice(0,4).map(([t,w,r])=>`<li><span class="dotm ${r?'read':''}"></span><span>${t}<div class="caption">${w}</div></span></li>`).join('');
+  document.getElementById('notif-all').innerHTML = nl;
+  document.getElementById('pulpit-team').innerHTML = P.filter(p=>p.dept==='zaop').map(personRow).join('');
+}
+
+/* ---------- Zadania ---------- */
+const FILTERS = [
+  ['moje','Moje',t=>otw(t)&&t.mine],['zespol','Mojego zespołu',t=>otw(t)&&!t.mine],['nieprz','Nieprzeczytane',t=>otw(t)&&t.unread],
+  ['dzis','Na dziś',t=>otw(t)&&t.dueKind==='dzis'],['po','Po terminie',t=>otw(t)&&t.dueKind==='po'],['wszystkie','Wszystkie otwarte',otw],['zamkniete','Zamknięte',t=>t.done]];
+function renderTasks(){
+  document.getElementById('task-filters').innerHTML = FILTERS.map(([k,l,f])=>
+    `<span class="chip ${k===taskFilter?'on':''}" onclick="taskFilter='${k}';renderTasks()">${l} <span class="n">${TASKS.filter(f).length}</span></span>`).join('')
+    + `<span style="flex:1"></span><span class="chip">Grupuj: aplikacja ▾</span>`;
+  const f = FILTERS.find(x=>x[0]===taskFilter)[2];
+  const list = TASKS.filter(f);
+  let html='';
+  APPS.forEach(a=>{
+    const g = list.filter(t=>t.app===a.id); if(!g.length) return;
+    const unread=g.filter(t=>t.unread).length, late=g.filter(t=>t.dueKind==='po').length;
+    html += `<tr class="grouphead"><td colspan="7">${a.name}<span class="counts">${g.length}${unread?` · nieprzeczytane ${unread}`:''}${late?` · po terminie ${late}`:''}${a.st!=='ok'?' · przykład z aplikacji w przygotowaniu':''}</span></td></tr>`;
+    html += g.map(t=>`<tr class="row" onclick="go('zadanie','${t.id}')"><td class="unread">${t.unread?'<i></i>':''}</td>
+      <td>${t.unread?`<strong>${t.title}</strong>`:t.title}<div class="caption">${t.sub}</div></td>
+      <td>${a.name}</td><td>${t.who==='Ja'?'Ja':`<span class="muted">${t.who}</span>`}</td>
+      <td class="mono" style="${t.dueKind==='po'?'color:var(--bad)':''}">${t.due}</td>
+      <td><span class="tag ${t.status[1]}">${t.status[0]}</span></td>
+      <td><div class="rowactions">${t.mine?'':`<button class="btn btn--ghost" onclick="event.stopPropagation();przejmij('${t.id}')">Przejmij</button>`}<button class="btn btn--second">Otwórz</button></div></td></tr>`).join('');
+  });
+  document.getElementById('task-rows').innerHTML = html || `<tr><td colspan="7" style="padding:40px;text-align:center" class="muted">Brak zadań w tym widoku.</td></tr>`;
+  document.getElementById('task-caption').textContent = (taskFilter==='zamkniete' ? `Zamknięte zadania: ${list.length} · otwarte: ${TASKS.filter(otw).length}` : `Wyświetlono ${list.length} z ${TASKS.filter(otw).length} otwartych zadań · zamknięte: ${TASKS.filter(t=>t.done).length}`) + ` · grupowanie: aplikacja · stan na 18.11.2026 09:40 (dane przykładowe)`;
+}
+function renderTask(id){
+  const t = TASKS.find(x=>x.id===id) || TASKS[0];
+  curTask = t.id; if(t.unread){ t.unread=false; liczniki(); }
+  document.getElementById('td-app').textContent = appName(t.app);
+  document.getElementById('td-title').textContent = t.title;
+  document.getElementById('td-sub').innerHTML = `${t.sub} · termin <span class="mono">${t.due}</span> · <span class="tag ${t.status[1]}">${t.status[0]}</span>`;
+  const body = document.getElementById('td-body');
+  if(t.id==='t1'){
+    body.innerHTML = `
+    <div class="card"><div class="card__head">Propozycja zamówienia <span class="right muted">przygotował system z zapotrzebowania tygodnia 47</span></div><div class="card__body">
+      <dl class="kv">
+        <dt>Surowiec</dt><dd>Gliceryna roślinna 99,5% · <span class="mono">INCI: Glycerin</span></dd>
+        <dt>Ilość</dt><dd class="mono">1 200 kg (48 × 25 kg)</dd>
+        <dt>Dostawca</dt><dd>Przykład Chem Sp. z o.o. · <span class="mono">NIP 000-000-00-00</span></dd>
+        <dt>Certyfikat dostawcy</dt><dd><span class="tag ok">GMP ważny do 30.06.2027</span></dd>
+        <dt>Wartość</dt><dd class="mono">18 600,00 zł netto</dd>
+        <dt>Żądany termin dostawy</dt><dd class="mono">27.11.2026</dd>
+      </dl>
+      <div class="note" style="margin-top:var(--s5)"><strong>Skąd ta ilość.</strong> Zlecenia produkcyjne ZP/2026/1182 i ZP/2026/1190 potrzebują 1 640 kg. Na stanie dostępne 520 kg, zarezerwowane 80 kg. Zaokrąglono w górę do pełnych opakowań 25 kg.</div>
+    </div></div>
+    <div class="card"><div class="card__head">Decyzja</div><div class="card__body">
+      <div class="note warn" style="margin-bottom:var(--s5)"><strong>Operacja o skutku poza firmą.</strong> Po zatwierdzeniu zamówienie trafi mailem do dostawcy. Wymaga Twojej decyzji, system niczego nie wysyła sam.</div>
+      <div class="field"><label for="uz">Uzasadnienie <span class="muted" style="font-weight:400">— wymagane przy odrzuceniu</span></label><textarea id="uz" rows="3" placeholder="Powód decyzji…"></textarea></div>
+      <div style="display:flex;gap:var(--s3);align-items:center;flex-wrap:wrap">
+        <button class="btn btn--accent" onclick="decide('Zamówienie zatwierdzone i przekazane do wysyłki (makieta: nic nie wysłano).')">Zatwierdź i wyślij</button>
+        <button class="btn btn--second" onclick="toast('Edycja szkicu zamówienia (poza zakresem makiety).')">Popraw szkic</button>
+        <button class="btn btn--danger" onclick="reject()">Odrzuć</button>
+        <span style="flex:1"></span>
+        <button class="btn btn--ghost" onclick="zwolnij()">Zwolnij zadanie</button>
+      </div>
+    </div></div>
+    <div class="card"><div class="card__head">Odbiorcy i historia</div><div class="card__body">
+      <dl class="kv"><dt>Zespół</dt><dd>Zaopatrzenie</dd><dt>Przejęte przez</dt><dd>Marta Szymańska · 18.11.2026 08:05</dd>
+      <dt>Powstało</dt><dd>18.11.2026 06:00 · aplikacja Zamówienia Surowców (przykład)</dd><dt>Do wiadomości</dt><dd>Grzegorz Wójcik (kierownik zaopatrzenia)</dd></dl>
+    </div></div>`;
+  } else {
+    body.innerHTML = `<div class="card"><div class="card__head">Szczegóły</div><div class="card__body">
+      <p style="margin-bottom:var(--s4)">${t.sub}.</p>
+      <dl class="kv"><dt>Aplikacja</dt><dd>${appName(t.app)}</dd><dt>Przypisane</dt><dd>${t.who==='Ja'?'Marta Szymańska':t.who}</dd><dt>Termin</dt><dd class="mono">${t.due}</dd></dl>
+      <div class="note" style="margin-top:var(--s5)">W makiecie pełny widok decyzji pokazuje zadanie <a href="#" onclick="go('zadanie','t1');return false">„Szkic zamówienia do dostawcy”</a>. Pozostałe zadania mają ten sam układ: propozycja, decyzja, historia.</div>
+      <div style="margin-top:var(--s5);display:flex;gap:var(--s3)">${t.done?`<span class="tag ok">Zamknięte</span>`:`<button class="btn btn--accent" onclick="decide('Zadanie zamknięte (makieta).')">Zrobione</button>`}<button class="btn btn--ghost" onclick="go('zadania')">Wróć do listy</button></div>
+    </div></div>`;
+  }
+  if(t.done) pokazZamkniete(t);
+}
+function zamknij(id, st){ const t=TASKS.find(x=>x.id===id); if(!t||t.done) return; t.done=true; t.unread=false; t.status=st||['Zamknięte','ok']; liczniki(); }
+function pokazZamkniete(t){
+  const c=[...document.querySelectorAll('#td-body .card')].find(c=>c.querySelector('.card__head').textContent.trim()==='Decyzja');
+  if(c) c.querySelector('.card__body').innerHTML=`<div class="note"><strong>Zadanie zamknięte.</strong> Status: ${t.status[0]}. Decyzja jest zapisana w historii zadania.</div>`;
+}
+function decide(msg, st){ zamknij(curTask, st); toast(msg); setTimeout(()=>go('zadania'),900); }
+function przejmij(id){ const t=TASKS.find(x=>x.id===id); t.mine=true; t.who='Ja'; t.unread=false; t.status=['Przejęte','']; liczniki(); renderTasks(); toast('Zadanie przejęte: jest teraz na Twojej liście.'); }
+function zwolnij(){ const t=TASKS.find(x=>x.id===curTask); t.mine=false; t.who='Zaopatrzenie'; t.status=['Nowe','info']; liczniki(); toast('Zadanie wróciło do zespołu Zaopatrzenie.'); setTimeout(()=>go('zadania'),900); }
+function liczniki(){
+  const mine=TASKS.filter(t=>otw(t)&&t.mine), po=mine.filter(t=>t.dueKind==='po'), dz=mine.filter(t=>t.dueKind==='dzis'), nr=mine.filter(t=>t.unread).length;
+  const set=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
+  set('k-mine',mine.length); set('sc-mine',mine.length); set('nav-task-count',mine.length);
+  set('k-mine-f', nr ? `${nr} nieprzeczytane` : 'wszystkie przeczytane');
+  set('k-po',po.length); set('sc-po',po.length); set('k-po-f', po.length ? `najstarsze od ${po.map(t=>t.due).sort()[0]}` : 'nic po terminie');
+  set('k-dzis',dz.length); set('sc-dzis',dz.length);
+  const godz=dz.map(t=>t.due.split(' ')[1]).filter(Boolean).sort();
+  set('k-dzis-f', dz.length ? (godz.length ? `najbliższy o ${godz[0]}` : 'bez godziny') : 'nic na dziś');
+}
+function reject(){
+  const v=document.getElementById('uz');
+  if(!v.value.trim()){ v.style.borderColor='var(--bad)'; v.focus(); toast('Przy odrzuceniu podaj uzasadnienie.'); return; }
+  decide('Zamówienie odrzucone (makieta).', ['Odrzucone','bad']);
+}
+
+/* ---------- Struktura i kontakty ---------- */
+function initials(n){ return n.split(' ').map(s=>s[0]).join('').slice(0,2); }
+function color(id){ return 'c'+(id.length%4+1); }
+function personRow(p){
+  return `<div class="person ${selPerson===p.id?'sel':''}" onclick="openPersonById('${p.id}')">
+    <span class="avatar ${color(p.id)}">${initials(p.name)}</span>
+    <span class="who">${p.name}${p.id===ME?' <span class="tag info">To Ty</span>':''}<small>${p.role}</small></span>
+    <span class="ph">wewn. ${p.ext}</span><span class="em">${p.mail}</span></div>`;
+}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{dirTab=b.dataset.tab;renderDir();}));
+function renderDir(){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===dirTab));
+  ['lista','schemat','dzial'].forEach(k=>document.getElementById('dir-'+k).classList.toggle('hidden',k!==dirTab));
+  if(dirTab==='lista') renderList();
+  if(dirTab==='schemat') renderOrg();
+  if(dirTab==='dzial') renderDept();
+  renderPanel();
+}
+let openDepts = new Set(['zaop']);
+function renderList(){
+  const q=(document.getElementById('dir-q').value||'').toLowerCase().trim();
+  const match=p=>!q||[p.name,p.role,p.ext,p.mob||'',p.mail,deptById[p.dept].name].join(' ').toLowerCase().includes(q);
+  let html='';
+  DEPTS.forEach(d=>{
+    const ppl=P.filter(p=>p.dept===d.id && match(p)); if(!ppl.length) return;
+    const h=headOf(d.id);
+    html+=`<details class="dept" ${q||openDepts.has(d.id)?'open':''} ontoggle="this.open?openDepts.add('${d.id}'):openDepts.delete('${d.id}')">
+      <summary><span class="chev">▸</span>${d.name} <span class="cnt">${P.filter(p=>p.dept===d.id).length}</span><span class="head">${h?h.name:''}</span></summary>
+      ${ppl.map(personRow).join('')}</details>`;
+  });
+  document.getElementById('dir-list-body').innerHTML = html || '<div class="card"><div class="card__body muted">Nikt nie pasuje do wyszukiwania.</div></div>';
+}
+function toggleAll(open){ openDepts = open?new Set(DEPTS.map(d=>d.id)):new Set(); renderList(); }
+const PIONY=[
+  ['Produkcja i łańcuch dostaw',['prod','plan','zaop','mag','ur']],
+  ['Jakość i rozwój',['lab','qc','qa']],
+  ['Wsparcie',['dyr','bhp','kadry']]];
+function renderOrg(){
+  const dir=byId['p-zielinski'];
+  const dnode=id=>{const d=deptById[id],h=headOf(id);return `<div class="node" onclick="selDept='${id}';dirTab='dzial';renderDir()"><b>${d.name}</b>${h.name}<br><span class="n">${P.filter(p=>p.dept===id).length} os.</span></div>`};
+  const kids=PIONY.map(([n,ids])=>`<li><div class="node pion"><b>${n}</b><span class="n">${ids.reduce((a,id)=>a+P.filter(p=>p.dept===id).length,0)} os.</span></div><div class="stack">${ids.map(dnode).join('')}</div></li>`).join('');
+  document.getElementById('org').innerHTML = `<ul><li><div class="node top" onclick="openPersonById('${dir.id}')"><b>Zakład Mińsk Mazowiecki</b>${dir.name} · ${dir.role}<br><span class="n">${P.length} osób</span></div><ul>${kids}</ul></li></ul>`;
+}
+function renderDept(){
+  document.getElementById('dept-chips').innerHTML = DEPTS.map(d=>`<span class="chip ${d.id===selDept?'on':''}" onclick="selDept='${d.id}';renderDept()">${d.name}</span>`).join('');
+  const d=deptById[selDept], h=headOf(selDept), ppl=P.filter(p=>p.dept===selDept);
+  document.getElementById('dept-view').innerHTML = `<div class="card"><div class="card__head">${d.name}<span class="right muted">${d.place}</span></div>
+    <div class="card__body" style="display:flex;gap:var(--s6);flex-wrap:wrap">
+      <div><div class="caption">Kierownik</div><a href="#" onclick="openPersonById('${h.id}');return false">${h.name}</a></div>
+      <div><div class="caption">Podlega</div>${h.boss?byId[h.boss].name:'—'}</div>
+      <div><div class="caption">Liczba osób</div><span class="mono">${ppl.length}</span></div>
+      <div><div class="caption">Telefon działu</div><span class="mono">wewn. ${h.ext}</span></div>
+    </div>${ppl.map(personRow).join('')}</div>`;
+}
+function openPersonById(id){ selPerson=id; if(current!=='struktura'){ go('struktura'); } else renderDir(); }
+function renderPanel(){
+  const el=document.getElementById('person-panel');
+  if(!selPerson){ el.innerHTML='<div class="empty">Wybierz osobę, aby zobaczyć jej kartę.</div>'; return; }
+  const p=byId[selPerson], boss=p.boss&&byId[p.boss], subs=P.filter(x=>x.boss===p.id), me=p.id===ME;
+  el.innerHTML = `<div class="panel__top"><span class="avatar lg ${color(p.id)}">${initials(p.name)}</span><div><h3>${p.name}</h3><div class="muted" style="font-size:13px">${p.role}</div>${me?'<span class="tag info" style="margin-top:6px">To Ty</span>':''}</div></div>
+    <div class="panel__body">
+      <dl class="kv">
+        <dt>Dział</dt><dd><a href="#" onclick="selDept='${p.dept}';dirTab='dzial';renderDir();return false">${deptById[p.dept].name}</a></dd>
+        <dt>Przełożony</dt><dd>${boss?`<a href="#" onclick="openPersonById('${boss.id}');return false">${boss.name}</a>`:'—'}</dd>
+        <dt>Telefon</dt><dd class="mono">wewn. ${p.ext}</dd>
+        <dt>Komórka</dt><dd class="mono">${p.mob?'+48 '+p.mob:'<span class="muted">nie podano</span>'}</dd>
+        <dt>E-mail</dt><dd><a href="#" onclick="return false">${p.mail}</a></dd>
+        <dt>Miejsce</dt><dd>${deptById[p.dept].place}</dd>
+        ${subs.length?`<dt>Podwładni</dt><dd>${subs.map(s=>`<a href="#" onclick="openPersonById('${s.id}');return false">${s.name}</a>`).join('<br>')}</dd>`:''}
+      </dl>
+      ${me?`<div style="margin-top:var(--s5);display:flex;flex-direction:column;gap:var(--s2)"><button class="btn btn--second" onclick="editMe()">Zmień swoje dane kontaktowe</button>
+        <div class="caption">Telefon i komórkę zmieniasz sam. Stanowisko, dział i przełożonego zmienia dział kadr, bo od nich zależą uprawnienia w całym Intranecie.</div></div>`
+      :`<div style="margin-top:var(--s5);display:flex;gap:var(--s2)"><button class="btn btn--second" onclick="toast('Połączenie przez telefon wewnętrzny (makieta).')">Zadzwoń</button><button class="btn btn--ghost" onclick="toast('Nowa wiadomość e-mail (makieta).')">Napisz</button></div>`}
+    </div>`;
+}
+function editMe(){
+  const p=byId[ME];
+  modal(`<div class="card__head">Moje dane kontaktowe</div><div class="card__body">
+    <div class="field"><label>Telefon wewnętrzny</label><input id="ed-ext" value="${p.ext}"></div>
+    <div class="field"><label>Telefon komórkowy</label><input id="ed-mob" value="${p.mob||''}"><div class="help">Widoczny dla wszystkich pracowników zakładu.</div></div>
+    <div class="field"><label>Stanowisko</label><input value="${p.role}" disabled><div class="help">Zmienia dział kadr.</div></div>
+    <div style="display:flex;gap:var(--s2);justify-content:flex-end"><button class="btn btn--ghost" onclick="closeModal()">Anuluj</button><button class="btn btn--accent" onclick="saveMe()">Zapisz</button></div></div>`);
+}
+function saveMe(){ const p=byId[ME]; p.ext=document.getElementById('ed-ext').value; p.mob=document.getElementById('ed-mob').value||null; closeModal(); zamknij('t6'); renderDir(); toast('Zapisano (tylko w tej makiecie). Zadanie „Potwierdź swoje dane kontaktowe” zamknięte.'); }
+
+/* ---------- Wyszukiwarka ---------- */
+function globalSearch(q){ go('struktura'); dirTab='lista'; document.getElementById('dir-q').value=q; renderDir(); }
+
+/* ---------- Pomocnicze ---------- */
+function modal(html){ document.getElementById('modal-root').innerHTML=`<div class="modal-bg" onclick="if(event.target===this)closeModal()"><div class="modal">${html}</div></div>`; }
+function closeModal(){ document.getElementById('modal-root').innerHTML=''; }
+let tt; function toast(m){ document.querySelectorAll('.toast').forEach(e=>e.remove()); const d=document.createElement('div'); d.className='toast'; d.textContent=m; document.body.appendChild(d); clearTimeout(tt); tt=setTimeout(()=>d.remove(),2600); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+
+/* ---------- Scenariusz testowy: jeden krok naraz ----------
+   SCEN: grupy {t, o?, p:[[nr, działanie, efekt, ekran, do ustalenia]]}. Ekran: widok albo widok:argument, 'reset' = przywrócenie danych.
+   Liczby w efektach potwierdza test w jsdom, nie pamięć. */
+const SC_TYTUL='Intranet Canexpol: notatki ze scenariusza', SC_PLIK='notatki-intranet-canexpol.md', SC_KLUCZ='intranet-canexpol-scenariusz-v1';
+const SCEN=[
+ {t:'Cel i punkt wyjścia', o:'Sprawdzamy, czy Intranet wystarczy specjaliście ds. zamówień jako jedno miejsce na początek dnia: wejście z drugim składnikiem, zadania z kilku aplikacji z decyzją człowieka, ludzie i kontakty zakładu oraz miejsce na kolejne aplikacje. Przechodzi Marta Szymańska, Zaopatrzenie, zakład Mińsk Mazowiecki.', p:[
+  ['0.1','Kliknij <b>Przywróć dane testowe</b>, żeby wszyscy zaczynali od tego samego stanu.','Makieta udaje <b>środę 18.11.2026, 09:40</b> i wraca na ekran logowania. Marta ma <b>7</b> zadań, w tym <b>2</b> nieprzeczytane, <b>1</b> po terminie i <b>2</b> z terminem dziś. W zakładzie jest <b>28</b> osób w <b>11</b> działach. Notatki ze scenariusza zostają.','reset',''],
+ ]},
+ {t:'Logowanie', p:[
+  ['1.1','Na ekranie <b>Zaloguj się</b> kliknij <b>Dalej</b> (adres e-mail i hasło są już wpisane).','Pojawia się krok 2 z 2 <b>Potwierdź, że to Ty</b> z polem na <b>6-cyfrowy</b> kod z aplikacji w telefonie. Bez kodu nie da się wejść: hasło samo nie wystarcza.','login','P-02: drugi składnik obowiązkowy dla wszystkich czy tylko dla administratora i ról, które zmieniają dostawcę? Logowanie kontem służbowym Canexpol (SSO) zamiast osobnego hasła?'],
+  ['1.2','Wpisz dowolne <b>6</b> cyfr w pola kodu.','Po szóstej cyfrze wchodzisz na <b>Pulpit</b> bez klikania. Pole <b>Zapamiętaj to urządzenie na 30 dni</b> jest zaznaczone, więc przez 30 dni kod nie będzie potrzebny na tym komputerze.','','Czy 30 dni zapamiętania urządzenia zgadza się z zasadami IT Canexpol, także na komputerach wspólnych na hali?'],
+ ]},
+ {t:'Pulpit i lista zadań', p:[
+  ['2.1','Na <b>Pulpicie</b> przeczytaj cztery kafle u góry.','<b>Moje zadania 7</b> (2 nieprzeczytane), <b>Po terminie 1</b> (najstarsze od 17.11.2026), <b>Termin dziś 2</b> (najbliższy o 14:00). Czwarty kafel <b>Wskaźniki mojej roli</b> jest pusty do czasu uruchomienia Zamówień Surowców. Te same liczby są w skrótach na górnym pasku.','pulpit','US-23: jakie 2–3 wskaźniki ma widzieć specjalista ds. zamówień (np. zamówienia czekające na akceptację, dostawy opóźnione, surowce poniżej stanu)?'],
+  ['2.2','Kliknij kafel <b>Po terminie</b>.','Lista <b>Zadania</b> z filtrem <b>Po terminie</b>: <b>1</b> zadanie „Rozbieżność przy przyjęciu dostawy — masło shea”, termin <b>17.11.2026</b> na czerwono i etykieta <b>Po terminie</b>. Pod tabelą: Wyświetlono <b>1 z 9</b> otwartych zadań. Kolor zawsze idzie z napisem (P-08).','pulpit',''],
+  ['2.3','Kliknij filtr <b>Mojego zespołu</b>, a w wierszu „Zbiorcze zapotrzebowanie, tydzień 48” kliknij <b>Przejmij</b>.','Zadanie przechodzi na Martę: filtr <b>Moje</b> rośnie z <b>7</b> do <b>8</b>, <b>Mojego zespołu</b> spada z <b>2</b> do <b>1</b>. Zadanie zespołu widzi cały dział, a robi je ta osoba, która je przejęła.','zadania','Czy kierownik (Grzegorz Wójcik) może sam przypisać zadanie zespołu konkretnej osobie, czy wystarczy przejmowanie?'],
+ ]},
+ {t:'Decyzja w zadaniu: szkic zamówienia', p:[
+  ['3.1','Kliknij filtr <b>Na dziś</b> i otwórz „Szkic zamówienia do dostawcy — gliceryna roślinna 99,5%”.','Propozycja: <b>1 200 kg (48 × 25 kg)</b>, <b>18 600,00 zł netto</b>, dostawa <b>27.11.2026</b>. Skąd ilość: potrzeba 1 640 kg, na stanie 520 kg, z tego 80 kg zarezerwowane, więc brakuje 1 640 − 440 = <b>1 200 kg</b>. Kropka nieprzeczytanego znika: na Pulpicie nieprzeczytane z <b>2</b> do <b>1</b>.','zadania:dzis',''],
+  ['3.2','Kliknij <b>Odrzuć</b>, nie wpisując nic w pole <b>Uzasadnienie</b>.','Zadanie się nie zamyka. Pole <b>Uzasadnienie</b> dostaje czerwoną ramkę i pojawia się komunikat „Przy odrzuceniu podaj uzasadnienie.” Reguła: odrzucenie wymaga powodu, zatwierdzenie nie.','',''],
+  ['3.3','Kliknij <b>Zatwierdź i wyślij</b>.','Komunikat o zatwierdzeniu (w makiecie nic nie wysłano) i powrót do listy z filtrem <b>Na dziś</b>: zostaje <b>1</b> zadanie, „Zmiana dostawcy zablokowana — pantenol D”. <b>Moje</b> spada z <b>8</b> do <b>7</b>, <b>Termin dziś</b> z <b>2</b> do <b>1</b> (najbliższy o 16:00), <b>Zamknięte</b> = 1. Mail do dostawcy idzie dopiero po decyzji człowieka (OOS-05).','','Czy zamówienia powyżej progu kwoty (np. 10 000,00 zł netto) wymagają drugiej akceptacji kierownika? Czy Marta ma móc poprawić ilość w szkicu przed zatwierdzeniem?'],
+ ]},
+ {t:'Struktura i kontakty', p:[
+  ['4.1','W wyszukiwarce na górnym pasku wpisz <b>magazyn</b> i naciśnij Enter.','Otwiera się <b>Struktura i kontakty</b>, lista zawęża się do działu <b>Magazyn</b>: <b>4</b> osoby, kierownik Andrzej Pietrzak (wewn. 700). Szukanie działa po imieniu, stanowisku, dziale, numerze i mailu.','','Wyszukiwarka zapowiada też zadania („Szukaj osoby, działu, zadania…”), a w makiecie szuka tylko ludzi. Czy w pierwszej wersji ma przeszukiwać zadania i dokumenty?'],
+  ['4.2','Kliknij zakładkę <b>Schemat</b>.','Na górze <b>Zakład Mińsk Mazowiecki</b>, Tomasz Zieliński, <b>28 osób</b>. Pod nim trzy piony: <b>Produkcja i łańcuch dostaw 17 os.</b>, <b>Jakość i rozwój 7 os.</b>, <b>Wsparcie 4 os.</b> (razem 28).','schemat','Czy podział na trzy piony odpowiada temu, jak Canexpol opisuje zakład, czy schemat ma iść prosto od dyrektora do działów?'],
+  ['4.3','Na schemacie kliknij dział <b>Zaopatrzenie</b>.','<b>Widok działu</b>: kierownik <b>Grzegorz Wójcik</b>, podlega Tomaszowi Zielińskiemu, liczba osób <b>3</b>, telefon działu <b>wewn. 600</b>. Na liście Marta ma oznaczenie <b>To Ty</b>.','dzial:zaop',''],
+  ['4.4','Kliknij swoje nazwisko, potem <b>Zmień swoje dane kontaktowe</b>, zmień <b>Telefon wewnętrzny</b> z 611 na <b>615</b> i kliknij <b>Zapisz</b>.','Karta pokazuje <b>wewn. 615</b>. Pole <b>Stanowisko</b> było zablokowane, bo zmienia je dział kadr. Zadanie „Potwierdź swoje dane kontaktowe” zamyka się samo: <b>Moje</b> z <b>7</b> do <b>6</b>, <b>Zamknięte</b> z <b>1</b> do <b>2</b>.','struktura:p-szymanska','Kto w Canexpol utrzymuje dane struktury (kadry czy IT) i skąd bierzemy je na start: eksport z systemu kadrowego czy arkusz?'],
+ ]},
+ {t:'Aplikacje', p:[
+  ['5.1','W menu kliknij <b>Aplikacje</b>.','<b>3</b> aplikacje: <b>Struktura i kontakty</b> (Działa) oraz <b>Zamówienia Surowców</b> i <b>PPWR — opakowania</b> (W przygotowaniu), a obok pole <b>Miejsce na kolejną aplikację</b>. Każda działa w tej samej powłoce, z jednym logowaniem.','aplikacje',''],
+  ['5.2','Kliknij kafel <b>Zamówienia Surowców</b>.','Okno z opisem aplikacji, <b>Właściciel procesu: do ustalenia</b> i <b>Dostęp: Wejście po uruchomieniu</b>. Nie ma przycisku <b>Otwórz</b>, bo aplikacja jeszcze nie działa. Kafel <b>Struktura i kontakty</b> ma przycisk <b>Otwórz</b>.','aplikacje','Kto jest właścicielem procesu w Zamówieniach Surowców i w PPWR (wpis na kaflu)?'],
+ ]},
+ {t:'Planowane kolejne obszary', o:'Tych ekranów w makiecie jeszcze nie ma. Pokazujemy tylko miejsce i zbieramy decyzje.', p:[
+  ['6.1','Na kaflach w <b>Aplikacjach</b> zobacz napis pod statusem: <b>Masz dostęp</b> albo <b>Wejście po uruchomieniu</b>.','W makiecie jest jedna rola: specjalista ds. zamówień. W etapie 2 dostęp do każdej aplikacji wynika z roli (US-26), a napis na kaflu mówi, czy możesz wejść.','aplikacje','Jakie role na start: pracownik, specjalista ds. zamówień, kierownik, administrator? Kto nadaje role?'],
+  ['6.2','W menu <b>Konto</b> sprawdź, że nie ma pozycji administracji.','Etap 2: <b>panel administratora</b> (dodawanie aplikacji do katalogu, US-21) i <b>dziennik aktywności</b> (US-27), w którym zapisuje się m.in. decyzja z kroku 3.3: kto, kiedy i co zatwierdził.','pulpit','Kto po stronie Canexpol administruje Intranetem? Czy dziennik zapisuje tylko decyzje o skutku poza firmą, czy też każde logowanie?'],
+  ['6.3','W <b>Zadaniach</b> kliknij filtr <b>Zamknięte</b>.','<b>2</b> zamknięte zadania: szkic zamówienia z kroku 3.3 i przegląd danych kontaktowych z kroku 4.4. Przegląd co 6 miesięcy to przykład <b>zadania cyklicznego</b> (US-25): w etapie 2 następny pojawi się sam po 6 miesiącach.','zadania:zamkniete','Jakie zadania cykliczne mają być na start (np. przegląd kontaktów, przegląd certyfikatów dostawców)?'],
+ ]},
+];
+const SC_WNIOSKI=`<ul>
+<li><b>Jedno miejsce na początek dnia:</b> 9 zadań z 3 aplikacji na jednej liście; Marta widzi od razu swoje 7, w tym 1 po terminie i 2 na dziś.</li>
+<li><b>Decyzja zostaje u człowieka:</b> szkic zamówienia na 18 600,00 zł netto wychodzi do dostawcy dopiero po „Zatwierdź i wyślij”, a odrzucenie wymaga powodu.</li>
+<li><b>Liczniki żyją:</b> przejęcie, zatwierdzenie i zapis kontaktu zmieniają liczby od razu (Moje 7 → 8 → 7 → 6).</li>
+<li><b>Struktura z jednego źródła:</b> 28 osób w 11 działach i 3 pionach, trzy widoki tych samych danych; swój telefon zmienia pracownik, stanowisko dział kadr.</li>
+<li><b>Miejsce na aplikacje:</b> 1 działa, 2 w przygotowaniu, kolejne dochodzą do tej samej powłoki bez nowego logowania.</li>
+<li><b>Do decyzji:</b> drugi składnik i SSO (P-02), wskaźniki roli (US-23), role na start (US-26), administrator i dziennik (US-21, US-27), źródło danych kadrowych, próg drugiej akceptacji zamówień.</li>
+</ul>`;
+const SC=[...SCEN.flatMap((g,gi)=>g.p.map((p,pi)=>({gi,pi,id:p[0],dz:p[1],ow:p[2],go:p[3],us:p[4]}))),{gi:SCEN.length,id:'wnioski'}];
+const SC_EKRAN={login:'Logowanie',pulpit:'Pulpit',zadania:'Zadania',zadanie:'Szczegóły zadania',struktura:'Struktura i kontakty',schemat:'Schemat',dzial:'Widok działu',aplikacje:'Aplikacje'};
+const scEsc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const bezTagow=s=>String(s||'').replace(/<[^>]+>/g,'');
+let SCS={open:true,i:0,ok:{},nt:{}};
+try{ Object.assign(SCS, JSON.parse(localStorage.getItem(SC_KLUCZ)||'{}')); }catch(e){}
+function scZapisz(){ try{ localStorage.setItem(SC_KLUCZ, JSON.stringify(SCS)); }catch(e){} }
+function resetDanych(){
+  TASKS.splice(0, TASKS.length, ...JSON.parse(JSON.stringify(TASKS0)));
+  P.forEach((p,i)=>{ p.ext=P0[i][0]; p.mob=P0[i][1]; });
+  taskFilter='moje'; dirTab='lista'; selPerson=null; selDept='zaop'; curTask=null; openDepts=new Set(['zaop']);
+  document.getElementById('dir-q').value=''; document.getElementById('global-search').value='';
+  document.querySelectorAll('#code input').forEach(i=>i.value='');
+  closeModal(); renderApps(); renderPulpit(); liczniki(); logout();
+}
+function scIdz(go){
+  const [w,x]=go.split(':'); closeModal();
+  if(w==='login'){ logout(); return; }
+  if(w==='schemat'||w==='dzial'){ dirTab=w; if(x) selDept=x; enterApp('struktura'); return; }
+  if(w==='struktura'){ dirTab='lista'; enterApp('struktura', x); return; }
+  enterApp(w, x);
+}
+function rScen(){
+  document.body.classList.toggle('scen-open', !!SCS.open);
+  document.getElementById('btnScen').setAttribute('aria-pressed', !!SCS.open);
+  const n=SC.length, i=Math.min(Math.max(+SCS.i||0,0),n-1); SCS.i=i; const x=SC[i];
+  const odh=SC.filter(s=>SCS.ok[s.id]).length;
+  document.getElementById('scInfo').textContent=`krok ${i+1} z ${n} · zgodne ${odh} z ${n-1}`;
+  document.getElementById('scProg').style.width=Math.round((i+1)/n*100)+'%';
+  document.getElementById('scSel').innerHTML=SCEN.map((g,gi)=>`<optgroup label="${gi}. ${scEsc(g.t)}">`+g.p.map(p=>{ const j=SC.findIndex(s=>s.id===p[0]), t=bezTagow(p[1]);
+      return `<option value="${j}"${j===i?' selected':''}>${p[0]} ${scEsc(t.length>46?t.slice(0,45)+'…':t)}${SCS.ok[p[0]]?' ✓':(SCS.nt[p[0]]||'').trim()?' •':''}</option>`; }).join('')+'</optgroup>').join('')+
+    `<option value="${n-1}"${i===n-1?' selected':''}>Wnioski ze spotkania</option>`;
+  const B=document.getElementById('scBody');
+  if(x.id==='wnioski'){ B.innerHTML=`<h4>Co pokazujemy na spotkaniu</h4><div class="scen-o">${SC_WNIOSKI}</div>`; }
+  else { const g=SCEN[x.gi], ok=!!SCS.ok[x.id];
+    const btn=x.go==='reset'?`<button class="btn btn--accent btn--sm" data-screset>Przywróć dane testowe</button>`
+      :x.go?`<button class="btn btn--ghost btn--sm" data-scgo="${x.go}">→ ${SC_EKRAN[x.go.split(':')[0]]}</button>`:'';
+    B.innerHTML=`<div class="scen-g">${x.gi}. ${scEsc(g.t)} <span>${x.pi+1}/${g.p.length}</span></div>${g.o&&x.pi===0?`<p class="scen-o">${g.o}</p>`:''}
+      <h4><span class="nr">${x.id}</span>${x.dz}</h4>
+      <div class="scen-ow"><span>Efekt</span>${x.ow}</div>
+      ${x.us?`<div class="scen-us"><span>Do ustalenia</span>${x.us}</div>`:''}
+      <div class="scen-act"><label class="scen-ok${ok?' on':''}"><input type="checkbox" data-scok="${x.id}"${ok?' checked':''}>Zgodne</label>${btn}</div>`; }
+  document.getElementById('scNotLb').textContent=x.id==='wnioski'?'Wnioski ze spotkania':`Notatka do kroku ${x.id}`;
+  document.getElementById('scNot').value=SCS.nt[x.id]||'';
+  document.getElementById('scPrev').disabled=i===0; document.getElementById('scNext').disabled=i===n-1;
+}
+function notatkiMd(){
+  const d=new Date(), p=n=>String(n).padStart(2,'0'), c=s=>String(s||'').replace(/\n/g,' ').replace(/\|/g,'/');
+  let md=`# ${SC_TYTUL}\n\nData eksportu: ${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}\n\nZgodne: ${SC.filter(x=>SCS.ok[x.id]).length} z ${SC.length-1} kroków.\n\n| Krok | Działanie | Do ustalenia | Zgodne | Notatka |\n|---|---|---|---|---|\n`;
+  let wn='';
+  for(const x of SC){ const n=(SCS.nt[x.id]||'').trim(); if(x.id==='wnioski'){ wn=n; continue; }
+    md+=`| ${x.id} | ${c(bezTagow(x.dz))} | ${c(bezTagow(x.us||''))} | ${SCS.ok[x.id]?'tak':''} | ${c(n)} |\n`; }
+  if(wn) md+=`\n## Wnioski ze spotkania\n\n${wn}\n`;
+  return md;
+}
+function pobierzNotatki(){ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([notatkiMd()],{type:'text/markdown'})); a.download=SC_PLIK; a.click(); }
+function scKrok(i){ SCS.i=i; scZapisz(); rScen(); }
+document.getElementById('btnScen').onclick=()=>{ SCS.open=!SCS.open; scZapisz(); rScen(); };
+document.getElementById('scClose').onclick=()=>{ SCS.open=false; scZapisz(); rScen(); };
+document.getElementById('scPrev').onclick=()=>scKrok(SCS.i-1);
+document.getElementById('scNext').onclick=()=>scKrok(SCS.i+1);
+document.getElementById('scSel').onchange=e=>scKrok(+e.target.value);
+document.getElementById('scMd').onclick=pobierzNotatki;
+document.getElementById('scNot').addEventListener('input',e=>{ SCS.nt[SC[SCS.i].id]=e.target.value; scZapisz(); });
+document.getElementById('scNot').addEventListener('change',()=>rScen());
+document.getElementById('scBody').addEventListener('change',e=>{ const c=e.target.closest('[data-scok]'); if(c){ SCS.ok[c.dataset.scok]=c.checked; scZapisz(); rScen(); } });
+document.getElementById('scBody').addEventListener('click',e=>{ const g=e.target.closest('[data-scgo]'); if(g) scIdz(g.dataset.scgo);
+  if(e.target.closest('[data-screset]')&&confirm('Przywrócić dane testowe makiety? Zmiany znikną, notatki ze scenariusza zostają.')){ resetDanych(); toast('Dane testowe przywrócone: stan z 18.11.2026 09:40.'); } });
+document.getElementById('scClr').onclick=()=>{ if(confirm('Wyczyścić wszystkie odhaczenia „Zgodne”? Notatki zostają.')){ SCS.ok={}; scZapisz(); rScen(); } };
+document.addEventListener('keydown',e=>{ if(!SCS.open||!e.altKey) return; if(e.key==='ArrowRight'&&SCS.i<SC.length-1){ e.preventDefault(); scKrok(SCS.i+1); } if(e.key==='ArrowLeft'&&SCS.i>0){ e.preventDefault(); scKrok(SCS.i-1); } });
+/* ---------- koniec scenariusza ---------- */
+
+/* ---------- Start ---------- */
+document.querySelectorAll('[data-logo]').forEach(el=>{ el.innerHTML = el.dataset.logo==='white' ? LOGO.replace(/#191414/g,'#ffffff') : LOGO; });
+document.getElementById('code').innerHTML = Array.from({length:6},()=>'<input maxlength="1" inputmode="numeric">').join('');
+document.querySelectorAll('#code input').forEach((inp,i,all)=>inp.addEventListener('input',()=>{ if(inp.value && all[i+1]) all[i+1].focus(); if(i===5 && inp.value) enterApp(); }));
+renderApps(); renderPulpit(); liczniki();
+/* Bezpośredni link do ekranu: #pulpit, #zadania, #zadanie=t1, #struktura=p-szymanska, #schemat, #dzial=prod, #aplikacje, #kod */
+(function(){
+  const [k,v] = decodeURIComponent(location.hash.slice(1)).split('=');
+  if(!k) return;
+  if(k==='kod'){ loginStep(2); return; }
+  if(k==='schemat'||k==='dzial'){ dirTab=k; if(v) selDept=v; enterApp('struktura'); return; }
+  enterApp(k, v);
+})();
+rScen();
+</script>
+</body>
+</html>
