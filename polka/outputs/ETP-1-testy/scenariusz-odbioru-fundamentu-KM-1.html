@@ -1,0 +1,238 @@
+<!--
+opis: Klikalny scenariusz odbioru fundamentu KM-1 dla Daniela Urbaniaka: 27 kroków na dev, bez drugiego składnika; niezgodności zgłaszane w Intranecie przyciskiem Zgłoś uwagę, Intranet otwiera się w oknie obok scenariusza.
+rodzaj: wynik
+zadanie: ZAD-016
+kamien: KM-1 Fundament powłoki gotowy
+rozmowa: ZAD-016 Odbiór fundamentu powłoki przez Daniela Urbaniaka (właścicie
+zmiana: 15.11.2026, ZAD-016 Odbiór fundamentu powłoki przez Daniela Urbaniaka (właścicie
+status: do akceptacji
+-->
+<!DOCTYPE html>
+<!-- opis: Scenariusz testowy odbioru fundamentu powłoki Intranetu FEBO (KM-1) przez Daniela Urbaniaka na środowisku dev: jeden krok naraz, „Zgodne”, notatki, decyzja odbioru i eksport notatek. Tylko główne funkcje, bez sprawdzania reakcji na błędy.
+rodzaj: wynik
+zadanie: ZAD-016
+rozmowa: zad-016-odbior-fundamentu-powloki-przez-
+zmiana: 15.11.2026, agent Tester (rozmowa ZAD-016) na prośbę Pawła Mazka
+status: do akceptacji
+slowa: odbiór, KM-1, fundament, scenariusz testowy, dev, Daniel Urbaniak, logowanie, lista zadań, katalog aplikacji, rejestr uwag -->
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Odbiór fundamentu Intranetu FEBO — scenariusz testowy</title>
+<style>
+:root{
+  --febo-black:#111112; --surface-white:#FFFFFF; --canvas-gray:#F4F5F6; --ink:#1A1A1C; --logo-gray:#DCDCDD;
+  --muted-gray:#6E7075; --border-gray:#D6D7DA; --febo-red:#CA1A2D; --success:#1E7A45; --warning:#B26A00; --info:#2C5F8A;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --r-field:2px; --r-card:4px;
+  --font-body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; --font-mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);font-size:14px;color:var(--ink);background:var(--canvas-gray);-webkit-font-smoothing:antialiased}
+.topbar{background:var(--febo-black);color:var(--logo-gray);display:flex;align-items:center;gap:var(--s3);padding:8px var(--s4);border-bottom:3px solid var(--febo-red)}
+.topbar b{color:#fff;letter-spacing:.08em}
+.topbar .sep{color:var(--muted-gray)}
+.grow{flex:1}
+.wrap{max-width:620px;margin:0 auto;padding:var(--s4)}
+.scen{background:var(--surface-white);border:1px solid var(--border-gray);border-top:3px solid var(--febo-red);border-radius:var(--r-card);display:flex;flex-direction:column}
+.scen-h{display:flex;align-items:center;gap:var(--s2);padding:var(--s3) var(--s4);background:var(--febo-black);color:#fff}
+.scen-h h1{font-size:16px;font-weight:600}
+.scen-h small{display:block;font-size:12px;color:var(--logo-gray);font-family:var(--font-mono)}
+.scen-prog{height:4px;background:var(--border-gray)}
+.scen-prog i{display:block;height:100%;background:var(--febo-red);transition:width .2s}
+.scen-sel{padding:var(--s3) var(--s4) 0}
+.scen-sel select{width:100%;font:inherit;font-size:13px;padding:6px;border:1px solid var(--border-gray);border-radius:var(--r-field);background:#fff}
+.scen-b{padding:var(--s4)}
+.scen-g{display:flex;justify-content:space-between;font-size:12px;color:var(--muted-gray);margin-bottom:var(--s2);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.scen-g span{font-family:var(--font-mono)}
+.scen-o{font-size:13px;color:var(--muted-gray);margin:0 0 var(--s3);line-height:1.5}
+.scen-o ul{margin:6px 0;padding-left:18px}.scen-o li{margin-bottom:6px;color:var(--ink)}
+.scen-b h2{font-size:15.5px;font-weight:400;line-height:1.5;margin:0 0 var(--s3)}
+.nr{display:inline-block;font-family:var(--font-mono);font-weight:600;font-size:13px;background:var(--febo-black);color:#fff;border-radius:var(--r-field);padding:0 6px;margin-right:var(--s2)}
+.scen-ow{background:var(--canvas-gray);border-left:4px solid var(--success);border-radius:var(--r-card);padding:var(--s2) var(--s3);font-size:14px;line-height:1.5}
+.scen-ow>span,.scen-us>span,.scen-wsk>span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted-gray);font-weight:600;margin-bottom:3px}
+.scen-wsk{margin-top:var(--s2);border-left:4px solid var(--info);background:#EEF3F8;border-radius:var(--r-card);padding:var(--s2) var(--s3);font-size:13px;line-height:1.45}
+.scen-us{margin-top:var(--s2);border:1px dashed var(--warning);background:#FDF5E8;border-radius:var(--r-card);padding:var(--s2) var(--s3);font-size:13px;line-height:1.45}
+.scen-act{display:flex;align-items:center;gap:var(--s2);margin-top:var(--s3);flex-wrap:wrap}
+.scen-ok{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border-gray);border-radius:999px;padding:5px 14px 5px 10px;cursor:pointer;font-size:13px;user-select:none}
+.scen-ok input{accent-color:var(--success);width:16px;height:16px}
+.scen-ok.on{border-color:var(--success);color:var(--success);font-weight:600;background:#EDF6F0}
+.scen-f{border-top:1px solid var(--border-gray);padding:var(--s3) var(--s4);display:flex;flex-direction:column;gap:var(--s2)}
+.lb{font-size:12px;color:var(--muted-gray);font-weight:600}
+textarea{font:inherit;font-size:13px;min-height:70px;padding:6px 8px;border:1px solid var(--border-gray);border-radius:var(--r-field);resize:vertical}
+.rw{display:flex;gap:var(--s2);align-items:center;flex-wrap:wrap}
+.btn{font:inherit;font-size:13px;border-radius:var(--r-field);padding:6px 12px;cursor:pointer;border:1px solid var(--border-gray);background:#fff;color:var(--ink);display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.btn:disabled{opacity:.45;cursor:default}
+.btn--accent{background:var(--febo-red);border-color:var(--febo-red);color:#fff}
+.btn--dark{background:var(--febo-black);border-color:var(--febo-black);color:#fff}
+.btn--ghost{border-color:transparent;background:transparent;color:var(--muted-gray)}
+.scen-h .btn--ghost{color:#fff}
+.dec{display:flex;flex-direction:column;gap:6px;margin:var(--s2) 0 var(--s3)}
+.dec label{display:flex;gap:8px;align-items:center;border:1px solid var(--border-gray);border-radius:var(--r-card);padding:8px 10px;cursor:pointer}
+.dec label.on{border-color:var(--ink);background:var(--canvas-gray);font-weight:600}
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:var(--s2)}
+.tbl td,.tbl th{border-bottom:1px solid var(--border-gray);padding:4px 6px;text-align:left;vertical-align:top}
+.tbl th{color:var(--muted-gray);font-weight:600}
+.foot{font-size:12px;color:var(--muted-gray);margin-top:var(--s3);line-height:1.5}
+code,.mono{font-family:var(--font-mono);font-size:12.5px}
+</style>
+</head>
+<body>
+<div class="topbar"><b>FEBO</b><span class="sep">/</span><span>Intranet</span><span class="sep">/</span><span>Odbiór fundamentu powłoki (KM-1)</span><span class="grow"></span><span class="mono">dev.febo.redai.pl</span></div>
+<div class="wrap">
+<section class="scen" aria-label="Scenariusz testowy">
+  <div class="scen-h"><div><h1>Scenariusz testowy odbioru</h1><small id="scInfo"></small></div><span class="grow"></span>
+    <button class="btn btn--ghost" id="scClr" title="Wyczyść odhaczenia „Zgodne” (notatki zostają)">Wyczyść „Zgodne”</button></div>
+  <div class="scen-prog"><i id="scProg"></i></div>
+  <div class="scen-sel"><select id="scSel" aria-label="Wybierz krok"></select></div>
+  <div class="scen-b" id="scBody" aria-live="polite"></div>
+  <div class="scen-f">
+    <label class="lb" for="scNot" id="scNotLb">Notatka</label>
+    <textarea id="scNot" placeholder="Numer zgłoszenia z Intranetu (ZGL-…) albo krótka uwaga"></textarea>
+    <div class="rw"><button class="btn" id="scPrev" title="Poprzedni krok (Alt+←)">Wstecz</button><span class="grow"></span>
+      <button class="btn btn--ghost" id="scMd" title="Pobierz notatki ze scenariusza (.md)">Pobierz notatki</button>
+      <button class="btn btn--accent" id="scNext" title="Następny krok (Alt+→)">Dalej</button></div>
+  </div>
+</section>
+<p class="foot">Odhaczenia i notatki zapisują się w tej przeglądarce, więc scenariusz można przerwać i wrócić do niego później. Intranet otwiera się w osobnym oknie po prawej: scenariusz trzymaj w lewej połowie ekranu, a niezgodności zgłaszaj w Intranecie przyciskiem „Zgłoś uwagę”.</p>
+</div>
+
+<script>
+/* ============ Stałe ============ */
+const DEV='https://dev.febo.redai.pl';
+const SC_KEY='odbior-fundamentu-km1-v2';
+const SC_PLIK='odbior-fundamentu-KM-1-notatki.md';
+const PM_MAIL='pawel.mazek@smallbigsteps.pl';
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=s=>document.querySelector(s);
+
+/* ============ Scenariusz ============
+   p: [numer, działanie, efekt, adres w Intranecie (ścieżka albo ''), wskazówka, do ustalenia]
+   Stan danych dev odczytany 15.11.2026: konto Daniela Urbaniaka (Dyrektor Transportu, dział „Transport i planowanie”),
+   role: Administrator biznesowy, Pełny dziennik audytu, Poziomy autonomii; drugi składnik nieskonfigurowany i dla tej roli niewymagany (zakres bez drugiego składnika, decyzja Pawła Mazka 15.11.2026). */
+const SCEN=[
+ {t:'Cel i przygotowanie',o:`<p>Cel: potwierdzić, że fundament powłoki Intranetu działa na środowisku roboczym (dev) i można na nim budować kolejne aplikacje. Sprawdzamy tylko główne funkcje: <b>logowanie, listę zadań, katalog aplikacji, rejestr uwag i aplikacje w użyciu</b>. Nie sprawdzamy reakcji na błędy.</p><p>Odbiór z wynikami testów użytkowników jest osobno, w kamieniu KM-3.</p><p><b>Jak zgłaszać niezgodności.</b> Gdy coś na ekranie nie zgadza się z opisem kroku, zgłoś to w Intranecie: kliknij <b>Zgłoś uwagę</b> w górnym pasku, wybierz <b>Rodzaj</b> (Błąd, Propozycja albo Pytanie), w <b>Opis</b> zacznij od numeru kroku, np. „Krok 2.3: …”, w razie potrzeby wklej zrzut ekranu (Ctrl+V) i kliknij <b>Wyślij</b>. Intranet sam zapisze, z którego ekranu zgłaszasz. Numer zgłoszenia z komunikatu (ZGL-…) wpisz w notatce przy kroku i nie zaznaczaj <b>Zgodne</b>.</p><p>Zgłoszenia trafiają do rejestru uwag na dev. Paweł Mazek widzi je w zakładce <b>Uwagi</b> i podpina pod zadanie odbioru.</p>`,p:[
+  ['0.1','Kliknij <b>Otwórz w Intranecie</b> i ustaw okno Intranetu obok tego scenariusza.','Po prawej stronie ekranu otwiera się okno Intranetu z ekranem logowania <b>Intranet FEBO</b> z napisem „Zaloguj się kontem firmowym.”, polami <b>Adres e-mail</b> i <b>Hasło</b> oraz przyciskiem <b>Zaloguj</b>.','/logowanie','Ustaw ten scenariusz w lewej połowie ekranu (w Windows klawisze Win+←). Okno Intranetu zostaje po prawej, a przycisk <b>Otwórz w Intranecie</b> w każdym kroku przenosi je na właściwy ekran. Gdy Intranet otworzy się w zwykłej karcie, przeciągnij tę kartę poza pasek kart i ustaw ją w prawej połowie (Win+→).',''],
+ ]},
+ {t:'Logowanie',o:'Logujesz się kontem firmowym: adres e-mail i hasło. Sprawdzamy też, czy Intranet zna Twoje stanowisko i uprawnienia.',p:[
+  ['1.1','Wpisz <b>Adres e-mail</b> daniel.urbaniak@febologistic.com i swoje hasło, kliknij <b>Zaloguj</b>.','Otwiera się ekran <b>Zadania</b>. W górnym pasku po prawej widać <b>Zgłoś uwagę</b>, Twoje imię i nazwisko oraz <b>Wyloguj</b>.','/logowanie','Hasło jest to samo co przy ostatnim logowaniu na dev (18.09.2026). Gdy go nie pamiętasz, użyj linku <b>Nie pamiętam hasła</b> pod formularzem.',''],
+  ['1.2','Kliknij <b>Profil</b> w górnym pasku.','Ekran <b>Mój profil</b>. W sekcji <b>Dane</b> stanowisko „Dyrektor Transportu”, w sekcji <b>Moje uprawnienia</b> m.in. role „Administrator biznesowy”, „Pełny dziennik audytu” i „Poziomy autonomii” (wynikają ze stanowiska).','/profil','',''],
+ ]},
+ {t:'Lista zadań',o:'Jedna lista zadań dla wszystkich aplikacji: wszystko, co czeka na decyzję człowieka, jest w jednym miejscu.',p:[
+  ['2.1','Spójrz na ekran <b>Zadania</b> (pierwszy ekran po zalogowaniu).','Pod nagłówkiem podsumowanie „N otwartych · N po terminie · N nieprzeczytanych”. Na liście są m.in. 3 zadania dla administratora biznesowego: „Sporna definicja pola „invoice_exchange_rate””, „Aplikacja „Struktura i kontakty” nie była używana od 90 dni.” i „Aplikacja „Standardy FEBO” została bez opieki…”. Kolumny: <b>Zadanie</b>, <b>Aplikacja</b>, <b>Termin</b>, <b>Priorytet</b>, <b>Stan</b>.','/zadania','Wpisz w notatce liczbę otwartych z podsumowania: przyda się w kroku 2.6.',''],
+  ['2.2','Kliknij przełącznik <b>Moja rola</b>.','Na liście zostają zadania skierowane do Twojej roli, w tym 3 zadania z kroku 2.1 w stanie „nowe”.','/zadania','',''],
+  ['2.3','Otwórz zadanie „Aplikacja „Struktura i kontakty” nie była używana od 90 dni.”.','Szczegóły zadania z okruszkami „Zadania › … › tytuł” i kartami <b>Treść</b>, <b>Decyzja</b> i <b>Komentarze</b>. Stan „nowe”.','','',''],
+  ['2.4','Kliknij <b>Podejmij</b>.','Komunikat „Zadanie jest Twoje.”, stan zmienia się z „nowe” na „podjęte”. Obok pojawia się <b>Zwolnij zadanie</b>.','','',''],
+  ['2.5','W karcie <b>Komentarze</b> wpisz w <b>Nowy komentarz</b> „Odbiór fundamentu, test komentarza” i kliknij <b>Dodaj komentarz</b>.','Komentarz pojawia się pod zadaniem z Twoim imieniem i nazwiskiem oraz godziną dodania.','','',''],
+  ['2.6','W karcie <b>Decyzja</b> wpisz w <b>Powód decyzji</b> „Aplikacja w testach, zostaje” i kliknij <b>Zatwierdź</b>.','Komunikat „Decyzja zapisana.”, stan „rozstrzygnięte”. Po powrocie na listę liczba otwartych w podsumowaniu jest o 1 mniejsza niż w kroku 2.1.','','','Co ma oznaczać „Zatwierdź” i „Odrzuć” przy przeglądzie aplikacji? Dziś decyzja zamyka zadanie i zostaje w historii, ale nie zmienia niczego w samej aplikacji.'],
+  ['2.7','Na liście włącz przełącznik <b>Rozstrzygnięte</b>, otwórz to samo zadanie i rozwiń <b>Pokaż szczegóły</b> › <b>Historia</b>.','Historia ma wpisy po kolei: podjęcie, komentarz i decyzję z Twoim nazwiskiem i powodem „Aplikacja w testach, zostaje”.','/zadania','',''],
+  ['2.8','Wróć na listę, ustaw przełącznik <b>Moja rola</b>, kliknij <b>Zapisz widok</b>, wpisz <b>Nazwa widoku</b> „Moje jako administrator”, zaznacz <b>Otwieraj listę na tym widoku</b> i kliknij <b>Zapisz</b>.','Na liście widoków jest „Moje jako administrator”. Po kliknięciu <b>Zadania</b> w górnym pasku lista otwiera się od razu z filtrem <b>Moja rola</b>.','/zadania','',''],
+ ]},
+ {t:'Katalog aplikacji',o:'Katalog pokazuje wszystkie aplikacje Intranetu i mówi, do których masz dostęp.',p:[
+  ['3.1','Kliknij <b>Aplikacje</b> w górnym pasku.','Ekran <b>Aplikacje</b> z kafelkami. Wśród nich: „Struktura i kontakty” (beta, „Masz dostęp”), „Standardy FEBO” (beta, „Masz dostęp”) i „Płatności” (produkcyjna, „Bez dostępu”, bo nie masz roli w Płatnościach).','/aplikacje','','W katalogu na dev są też 4 kafelki „bez opieki” po testach automatycznych: „Limity kupieckie”, „Odprawy celne”, „Lokator próbny” i „Sankcje”. Czy mają zniknąć z dev przed pokazem użytkownikom?'],
+  ['3.2','Na kafelku „Standardy FEBO” kliknij <b>⋯</b> w rogu.','Okno „Standardy FEBO” ze statusem „beta”, opisem aplikacji i wierszem „Właściciel procesu” oraz przyciskami <b>Wejdź do aplikacji</b> i <b>Zamknij</b>. Wiersza „Zastępca” nie ma, bo żadna aplikacja nie ma jeszcze zastępcy.','/aplikacje','','Właścicielką procesu Standardów jest wciąż Izabela Młot, której konto jest wyłączone (stąd zadanie z kroku 2.1). Kto przejmuje Standardy i kto jest zastępcą?'],
+  ['3.3','Kliknij <b>Zamknij</b>, a potem kliknij kafelek „Struktura i kontakty”.','Otwiera się aplikacja „Struktura i kontakty” z zakładkami <b>Drzewo</b>, <b>Schemat</b>, <b>Działy</b> i <b>Kalendarz obecności</b>.','/aplikacje','',''],
+  ['3.4','W panelu bocznym przy grupie <b>Aplikacje</b> kliknij <b>Ustaw kolejność</b>, przesuń „Standardy FEBO” strzałką <b>Przesuń wyżej</b> na pierwsze miejsce i kliknij <b>Gotowe</b>.','„Standardy FEBO” są w panelu nad „Struktura i kontakty”, a „Wszystkie aplikacje” zostają na końcu. Po odświeżeniu strony (F5) kolejność zostaje, bo zapisuje się przy Twoim koncie.','','Przycisk <b>Ustaw kolejność</b> widać przy szerokim, rozwiniętym panelu bocznym.',''],
+  ['3.5','Na górze panelu bocznego kliknij <b>« Zwiń panel</b>, a potem <b>» Rozwiń panel</b>.','Po zwinięciu panel pokazuje same ikony, po rozwinięciu wraca z nazwami. Stan panelu też zapamiętuje się przy koncie.','','',''],
+ ]},
+ {t:'Rejestr uwag',o:'Każdy może z dowolnego ekranu zgłosić błąd, propozycję albo pytanie. Administratorzy prowadzą zgłoszenia w zakładce „Uwagi”. Sprawdzamy to na jednym zgłoszeniu testowym. Niezgodności zgłoszone wcześniej w tym scenariuszu będą na listach obok niego: liczby poniżej mówią, o ile lista się zmienia.',p:[
+  ['4.1','Na dowolnym ekranie kliknij <b>Zgłoś uwagę</b> w górnym pasku, wybierz <b>Rodzaj</b> „Propozycja”, w <b>Opis</b> wpisz „Odbiór fundamentu: zgłoszenie testowe” i kliknij <b>Wyślij</b>.','Komunikat „Zgłoszenie &lt;numer&gt; przyjęte” z linkiem do Twoich zgłoszeń i przyciskiem <b>Zamknij</b>.','','Do zgłoszenia można dołączyć zrzut ekranu: wkleić go Ctrl+V albo przeciągnąć plik. Tak samo zgłaszasz niezgodności z innych kroków, z numerem kroku na początku opisu.',''],
+  ['4.2','Kliknij link do Twoich zgłoszeń w komunikacie.','Ekran <b>Moje zgłoszenia</b> przybywa 1 wiersz, na górze zgłoszenie z kroku 4.1: rodzaj „Propozycja”, stan „Nowe”, ekran, z którego poszło zgłoszenie, i data.','/feedback','',''],
+  ['4.3','W panelu bocznym kliknij <b>Uwagi</b>.','Ekran <b>Uwagi</b> z filtrem <b>Stan</b> „Otwarte”. Na liście jest zgłoszenie z kroku 4.1, w kolumnie „Zgłaszający” Twoje imię i nazwisko. Licznik nowych przy pozycji <b>Uwagi</b> w panelu jest o 1 większy niż przed krokiem 4.1.','/admin/feedback','',''],
+  ['4.4','Otwórz zgłoszenie z kroku 4.1, w karcie <b>Obsługa zgłoszenia</b> wybierz <b>Nowy stan</b> „Rozwiązane”, wpisz <b>Odpowiedź dla zgłaszającego</b> „Test zakończony” i kliknij <b>Zapisz stan</b>.','Stan zgłoszenia zmienia się z „Nowe” na „Rozwiązane”, licznik przy <b>Uwagi</b> spada o 1, a na ekranie <b>Moje zgłoszenia</b> zgłoszenie ma stan „Rozwiązane” i Twoją odpowiedź.','','Zamykasz tylko zgłoszenie testowe. Twoje zgłoszenia niezgodności zostają otwarte, zajmie się nimi zespół.',''],
+ ]},
+ {t:'Aplikacje w użyciu',o:'Dwie aplikacje, do których masz dostęp: „Struktura i kontakty” i „Standardy FEBO”. Płatności prowadzi osobny projekt, dlatego nie ma ich w tym odbiorze.',p:[
+  ['5.1','W „Struktura i kontakty” w wyszukiwarce „Szukaj osoby, stanowiska lub działu…” wpisz „Urbaniak” i otwórz swoją kartę.','Karta osoby: <b>Dział</b> „Transport i planowanie”, <b>Grupa stanowisk</b> „Dyrekcja transportu”, <b>E-mail</b> daniel.urbaniak@febologistic.com, <b>Przełożony</b> Izabela Młot-Wójcicka.','/app/directory','','Przełożoną na dev jest osoba z wyłączonym kontem. Czy dane struktury mają zostać uporządkowane przed testami użytkowników (KM-3)?'],
+  ['5.2','Na swojej karcie przy <b>Telefon</b> kliknij <b>Dodaj</b> (albo <b>Zmień</b>), wpisz swój numer służbowy i kliknij <b>Zapisz</b>.','Numer pojawia się na karcie. Widzą go pozostali pracownicy w aplikacji.','/app/directory','',''],
+  ['5.3','Przejdź na zakładkę <b>Kalendarz obecności</b>, w sekcji <b>Moja nieobecność</b> ustaw <b>Od</b> i <b>Do</b> na jutrzejszy dzień i kliknij <b>Wpisz</b>. Potem kliknij <b>Wycofaj</b>.','Po <b>Wpisz</b> nieobecność widać w kalendarzu na jutrzejszym dniu, po <b>Wycofaj</b> znika.','/app/directory','',''],
+  ['5.4','Przejdź do „Standardy FEBO” (panel boczny), w polu <b>Szukaj</b> wpisz „urlop”.','Na liście jest procedura „Zgłoszenie i akceptacja urlopu wypoczynkowego”.','/app/standards','',''],
+  ['5.5','Otwórz procedurę „Zgłoszenie i akceptacja urlopu wypoczynkowego”.','Widać treść obowiązującej wersji oraz przyciski <b>Napisz nową wersję</b> i <b>Wróć do listy</b>.','','','Na dev są też szkice i procedury testowe („Test”, „TEST”, „test2”, „testttt”). Czy usunąć je przed testami użytkowników?'],
+  ['5.6','Kliknij <b>Wróć do listy</b>, potem <b>Napisz procedurę</b>. Wybierz <b>Kategoria</b>, wpisz <b>Tytuł</b> „Odbiór fundamentu: procedura próbna”, krótkie <b>Streszczenie</b>, zostaw <b>Rodzaj dokumentu</b> „Procedura krokowa” i kliknij <b>Załóż i pisz</b>.','Ekran edycji szkicu z polami <b>Tytuł</b>, <b>Streszczenie</b>, <b>Procedura</b> i kartą <b>Asystent</b>.','/app/standards/nowa','',''],
+  ['5.7','W karcie <b>Asystent</b> kliknij <b>Poproś o szkic</b>, poczekaj na wynik i kliknij <b>Zapisz szkic</b>.','Asystent wypełnia pole <b>Procedura</b> propozycją kroków. Po zapisie szkic jest zapisany (do zatwierdzenia go nie zgłaszamy).','','Odpowiedź asystenta może przyjść po kilkunastu sekundach.',''],
+ ]},
+];
+const SC_WNIOSKI=`<ul>
+<li><b>Zakres odbioru:</b> pięć obszarów fundamentu (logowanie, lista zadań, katalog aplikacji, rejestr uwag, aplikacje w użyciu), tylko główne funkcje.</li>
+<li><b>Po odbiorze:</b> kamień KM-1 „Fundament powłoki gotowy” zostaje zamknięty. Testy z użytkownikami i ich wyniki są w KM-3.</li>
+<li><b>Do decyzji:</b> pytania z pól „Do ustalenia” (kroki 2.6, 3.1, 3.2, 5.1 i 5.5) to porządek danych na dev i przejęcie Standardów. Nie blokują odbioru fundamentu.</li>
+</ul>`;
+const DECYZJE=[['tak','Przyjmuję fundament'],['uwagi','Przyjmuję fundament z uwagami (uwagi zgłoszone w Intranecie i w notatkach)'],['nie','Nie przyjmuję fundamentu (powód w notatkach)']];
+
+/* ============ Mechanika panelu (jak w makiecie planera v5) ============ */
+const SC=[];SCEN.forEach((g,gi)=>g.p.forEach((p,pi)=>SC.push({id:p[0],dz:p[1],ow:p[2],go:p[3],wsk:p[4],us:p[5],gi,pi})));SC.push({id:'wnioski'});
+const scStrip=h=>String(h||'').replace(/<[^>]+>/g,'').replace(/&nbsp;/g,' ').replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+let SCS={i:0,ok:{},nt:{},dec:''};
+try{const z=JSON.parse(localStorage.getItem(SC_KEY)||'null');if(z)SCS={...SCS,...z};}catch(e){}
+function scZapisz(){try{localStorage.setItem(SC_KEY,JSON.stringify(SCS));}catch(e){}}
+const odhaczone=()=>SC.filter(s=>SCS.ok[s.id]).length;
+function rScen(){
+  const n=SC.length,i=Math.min(Math.max(+SCS.i||0,0),n-1);SCS.i=i;const x=SC[i];
+  $('#scInfo').textContent=`krok ${i+1} z ${n} · zgodne ${odhaczone()} z ${n-1}`;
+  $('#scProg').style.width=Math.round((i+1)/n*100)+'%';
+  $('#scSel').innerHTML=SCEN.map((g,gi)=>`<optgroup label="${gi}. ${esc(g.t)}">`+g.p.map(p=>{const j=SC.findIndex(s=>s.id===p[0]),t=scStrip(p[1]);
+      return`<option value="${j}"${j===i?' selected':''}>${p[0]} ${esc(t.length>60?t.slice(0,59)+'…':t)}${SCS.ok[p[0]]?' ✓':(SCS.nt[p[0]]||'').trim()?' •':''}</option>`;}).join('')+'</optgroup>').join('')+
+    `<option value="${n-1}"${i===n-1?' selected':''}>Wnioski i decyzja odbioru</option>`;
+  const B=$('#scBody');
+  if(x.id==='wnioski'){
+    const zN=SC.filter(s=>s.id!=='wnioski'&&(SCS.nt[s.id]||'').trim());
+    B.innerHTML=`<div class="scen-g">Wnioski i decyzja odbioru <span>${odhaczone()}/${n-1} zgodne</span></div>
+      <div class="scen-o">${SC_WNIOSKI}</div>
+      <h2>Decyzja odbioru fundamentu (KM-1)</h2>
+      <div class="dec">${DECYZJE.map(([k,t])=>`<label class="${SCS.dec===k?'on':''}"><input type="radio" name="dec" value="${k}"${SCS.dec===k?' checked':''}> ${t}</label>`).join('')}</div>
+      ${zN.length?`<div class="lb">Kroki z notatkami (${zN.length})</div><table class="tbl"><tr><th>Krok</th><th>Notatka</th></tr>${zN.map(s=>`<tr><td class="mono">${s.id}</td><td>${esc(SCS.nt[s.id])}</td></tr>`).join('')}</table>`:'<div class="lb">Żaden krok nie ma notatki.</div>'}
+      <div class="scen-act"><button class="btn btn--dark" data-mail>Wyślij podsumowanie do Pawła Mazka</button></div>
+      <div class="scen-wsk"><span>Jak oddać wynik</span>Kliknij <b>Pobierz notatki</b>, a potem <b>Wyślij podsumowanie do Pawła Mazka</b>: otworzy się mail z decyzją i liczbą zgodnych kroków. Dołącz do niego pobrany plik z notatkami.</div>`;
+  }else{
+    const g=SCEN[x.gi],ok=!!SCS.ok[x.id];
+    B.innerHTML=`<div class="scen-g">${x.gi}. ${esc(g.t)} <span>${x.pi+1}/${g.p.length}</span></div>
+      ${x.pi===0&&g.o?`<div class="scen-o">${g.o}</div>`:''}
+      <h2><span class="nr">${x.id}</span>${x.dz}</h2>
+      <div class="scen-ow"><span>Efekt</span>${x.ow}</div>
+      ${x.wsk?`<div class="scen-wsk"><span>Wskazówka</span>${x.wsk}</div>`:''}
+      ${x.us?`<div class="scen-us"><span>Do ustalenia</span>${x.us}</div>`:''}
+      <div class="scen-act"><label class="scen-ok${ok?' on':''}"><input type="checkbox" data-scok="${x.id}"${ok?' checked':''}> Zgodne</label>
+      ${x.go?`<button class="btn" data-scgo="${esc(x.go)}">Otwórz w Intranecie</button>`:''}</div>`;
+  }
+  $('#scNotLb').textContent=x.id==='wnioski'?'Wnioski i decyzje':`Notatka do kroku ${x.id}`;
+  $('#scNot').value=SCS.nt[x.id]||'';
+  $('#scPrev').disabled=i===0;$('#scNext').disabled=i===n-1;
+}
+const p2=n=>String(n).padStart(2,'0');
+const teraz=()=>{const d=new Date();return`${p2(d.getDate())}.${p2(d.getMonth()+1)}.${d.getFullYear()} ${p2(d.getHours())}:${p2(d.getMinutes())}`;};
+const decTekst=()=>(DECYZJE.find(d=>d[0]===SCS.dec)||[,'nie wybrano'])[1];
+function scNotatkiMd(){
+  const c=s=>String(s||'').replace(/\n/g,' ').replace(/\|/g,'/');
+  let md=`# Odbiór fundamentu powłoki Intranetu FEBO (KM-1): notatki ze scenariusza\n\nŚrodowisko: ${DEV}\n\nData eksportu: ${teraz()}\n\nDecyzja: **${decTekst()}**\n\nZgodne: ${odhaczone()} z ${SC.length-1} kroków.\n\n| Krok | Działanie | Do ustalenia | Zgodne | Notatka |\n|---|---|---|---|---|\n`;
+  let wn='';
+  for(const x of SC){const n=(SCS.nt[x.id]||'').trim();if(x.id==='wnioski'){wn=n;continue;}
+    md+=`| ${x.id} | ${c(scStrip(x.dz))} | ${c(scStrip(x.us))} | ${SCS.ok[x.id]?'tak':''} | ${c(n)} |\n`;}
+  if(wn)md+=`\n## Wnioski i decyzje\n\n${wn}\n`;
+  return md;
+}
+function scPobierz(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([scNotatkiMd()],{type:'text/markdown'}));a.download=SC_PLIK;document.body.appendChild(a);a.click();a.remove();}
+function scMail(){
+  const nie=SC.filter(s=>s.id!=='wnioski'&&!SCS.ok[s.id]).map(s=>s.id);
+  const zN=SC.filter(s=>(SCS.nt[s.id]||'').trim()).map(s=>`${s.id==='wnioski'?'Wnioski':s.id}: ${(SCS.nt[s.id]||'').trim().replace(/\s+/g,' ').slice(0,200)}`);
+  const body=`Decyzja: ${decTekst()}\nZgodne: ${odhaczone()} z ${SC.length-1} kroków.\n${nie.length?`Bez odhaczenia: ${nie.join(', ')}\n`:''}\n${zN.length?'Notatki:\n'+zN.join('\n'):'Bez notatek.'}\n\nPełne notatki w załączniku (${SC_PLIK}).`;
+  location.href=`mailto:${PM_MAIL}?subject=${encodeURIComponent('Odbiór fundamentu Intranetu (KM-1): '+decTekst())}&body=${encodeURIComponent(body)}`;
+}
+function scOtworz(u){const S=window.screen||{},w=S.availWidth||0,h=S.availHeight||0,l=S.availLeft||0,t=S.availTop||0;
+  if(w<1200){window.open(u,'intranet-dev');return;}
+  const p=Math.floor(w/2);window.open(u,'intranet-dev',`left=${l+p},top=${t},width=${w-p},height=${h}`);}
+function scKrok(i){SCS.i=i;scZapisz();rScen();window.scrollTo(0,0);}
+$('#scPrev').onclick=()=>scKrok(SCS.i-1);
+$('#scNext').onclick=()=>scKrok(SCS.i+1);
+$('#scSel').onchange=e=>scKrok(+e.target.value);
+$('#scMd').onclick=scPobierz;
+$('#scNot').addEventListener('input',e=>{SCS.nt[SC[SCS.i].id]=e.target.value;scZapisz();});
+$('#scNot').addEventListener('change',()=>rScen());
+$('#scBody').addEventListener('change',e=>{const c=e.target.closest('[data-scok]');if(c){SCS.ok[c.dataset.scok]=c.checked;scZapisz();rScen();}
+  if(e.target.name==='dec'){SCS.dec=e.target.value;scZapisz();rScen();}});
+$('#scBody').addEventListener('click',e=>{const g=e.target.closest('[data-scgo]');if(g)scOtworz(DEV+g.dataset.scgo);
+  if(e.target.closest('[data-mail]'))scMail();});
+$('#scClr').onclick=()=>{if(confirm('Wyczyścić wszystkie odhaczenia „Zgodne”? Notatki zostają.')){SCS.ok={};scZapisz();rScen();}};
+document.addEventListener('keydown',e=>{if(!e.altKey)return;if(e.key==='ArrowRight'){e.preventDefault();scKrok(SCS.i+1);}else if(e.key==='ArrowLeft'){e.preventDefault();scKrok(SCS.i-1);}});
+rScen();
+</script>
+</body>
+</html>
