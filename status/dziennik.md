@@ -6,6 +6,7 @@ Ostatnie 100 zdarzeń w backlogu, od najnowszego.
 
 | Data | Zadanie | Co | Kto | Notatka |
 |---|---|---|---|---|
+| 24.11.2026 13:13 | ZAD-176 | DO ZROBIENIA → ZROBIONE | karta repozytoriów | Zamknięte samo: wiersz karty „Repozytoria projektu” działa. |
 | 24.11.2026 13:01 | ZAD-339 | W TOKU → DO AKCEPTACJI | czat: ZAD-339 Bez zdania o celu | Wynik odłożony na półkę: outputs/KM-7-ux-i-uy/ZAD-339-kod.md |
 | 24.11.2026 13:01 | ZAD-339 | notatka | czat: ZAD-339 Bez zdania o celu | Kod: gałąź zad-339-bez-zdania-o-celu (commit d073587). Zdania o celu usunięte z 21 miejsc, PageHeader bez pola purpose, PurposeSentence i namedDayOf usunięte. S... |
 | 24.11.2026 12:55 | ZAD-338 | notatka | czat: ZAD-338 Testy powłoki bez wdrożenia | Ustalenie 24.11: w CI (ci.yml, job backend) dochodzi drugi przebieg testów powłoki z INTRANET_DEPLOYMENT puste, bez progu pokrycia. Wynik: PR z gałęzi zad-338-t... |
@@ -105,4 +106,3 @@ Ostatnie 100 zdarzeń w backlogu, od najnowszego.
 | 23.11.2026 10:04 | ZAD-327 | notatka | czat: ZAD-327 Struktura i kontakty: trzy widoki | Ustalenie z Pawłem Mazkiem 23.11.2026: domyślna zakładka Lista, własny dział rozwinięty, „To Ty” przy własnym wierszu. Widok działu bez wyboru otwiera dział oso... |
 | 23.11.2026 10:03 | ZAD-334 | notatka | czat: ZAD-334 Kapsułki i opcje marki | Ustalenie z Pawłem Mazkiem 23.11.2026: znak aplikacji bez opcji mark-fill zgodnie z makietą 07 i kontraktem — rysunek w kolorze ink na tle kafla w cienkiej ramc... |
 | 23.11.2026 10:00 | ZAD-328 | notatka | czat: ZAD-328 Standardy w stylu wytycznych | 23.11.2026 Paweł Mazek: wariant B — decyzja znika z ekranu procedury; zostaje zdanie (np. „To czeka na Twoją decyzję” / „Masz to przeczytać i potwierdzić”, kto... |
-| 23.11.2026 10:00 | ZAD-325 | notatka | czat: ZAD-325 Katalog aplikacji według makiety | CI: test katalogu grafik padał na home i bell z ZAD-321; dopisane do katalogu w gałęzi PR (4ed423e) i w core-cockpit 3.22 na main (33d40ab). |

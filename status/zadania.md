@@ -220,7 +220,7 @@
 | ZAD-203 | Numer próby w rejestrze wywołań | DO ZROBIENIA | Pawel Mazek | KM-4 | 24.11.2026 |  |
 | ZAD-205 | Czyszczenie schematów w testach | DO ZROBIENIA | Pawel Mazek | KM-4 | 24.11.2026 |  |
 | ZAD-175 | Repozytorium kodu | DO ZROBIENIA | redAI | KM-4 | 24.11.2026 |  |
-| ZAD-176 | Repozytorium materiałów | DO ZROBIENIA | redAI | KM-4 | 24.11.2026 |  |
+| ZAD-176 | Repozytorium materiałów | ZROBIONE | redAI | KM-4 | 24.11.2026 | Wymiana materiałów działa od 24.11.2026, zgoda: Pawel Mazek 24.11.2026. |
 | ZAD-231 | Archiwum audytu partiami | ZROBIONE | Pawel Mazek | KM-4 | 03.11.2026 | PR #229 scalony do main: https://github.com/SmallBigSteps/intranetFebo/pull/229 (archiwum audytu partiami w czasie polsk... |
 | ZAD-236 | Typy odpowiedzi: Struktura i kontakty | ZROBIONE | Pawel Mazek | KM-4 | 02.11.2026 | PR #224 scalony do main (https://github.com/SmallBigSteps/intranetFebo/pull/224); kontrakty hooków 2.2 i narzędzi 1.5 or... |
 | ZAD-237 | Typy odpowiedzi: pozostałe moduły | ZROBIONE | Pawel Mazek | KM-4 | 03.11.2026 | Scalone do main: PR #233–#239 (wszystkie moduły powłoki i lokatorów z opisem odpowiedzi i typami frontu z opisu API, 407... |
